@@ -31,16 +31,13 @@ export class KogitoEditorsExtension {
 
   public registerCustomSaveCommand() {
     this.context.subscriptions.push(
-      vscode.commands.registerCommand("workbench.action.files.save", () => {
-        // If a kogito editor is active, its content is saved manually.
-        this.editorStore.withActive(editor => editor.requestSave());
-
+      vscode.commands.registerCommand("workbench.action.files.save", async () => {
         // If a text editor is active, we save it normally.
         if (vscode.window.activeTextEditor) {
-          vscode.window.activeTextEditor.document.save();
+          await vscode.window.activeTextEditor.document.save();
         }
-
-        return Promise.resolve();
+        // If a kogito editor is active, its content is saved manually.
+        this.editorStore.withActive(editor => editor.requestSave());
       })
     );
   }
@@ -49,7 +46,7 @@ export class KogitoEditorsExtension {
     this.context.subscriptions.push(
       vscode.commands.registerCommand("workbench.action.files.saveAll", () => {
         this.editorStore.openEditors.forEach(e => e.requestSave());
-        return vscode.workspace.saveAll(true);
+        return vscode.workspace.saveAll(false);
       })
     );
   }
@@ -66,14 +63,14 @@ export class KogitoEditorsExtension {
         }
 
         const path = textEditor.document.uri.path;
-        const openEditor = this.editorStore.get(path);
+        const openKogitoEditor = this.editorStore.get(path);
 
-        if (!openEditor) {
+        if (!openKogitoEditor) {
           this.closeActiveTextEditor().then(() => this.editorFactory.openNew(path));
           return;
         }
 
-        if (textEditor.viewColumn === openEditor.viewColumn()) {
+        if (textEditor.viewColumn === openKogitoEditor.viewColumn()) {
           this.closeActiveTextEditor();
           //FIXME: Focus on existing KogitoEditor
           //
