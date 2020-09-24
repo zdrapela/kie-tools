@@ -34,7 +34,11 @@ jobs:
           for buildDir in */*/;
           do
             buildDate=$(git log -1 --pretty="format:%ct" --date="iso-strict" -- $buildDir)
+            buildDate2=$(git log -1 --pretty="format:%ct" --date="iso-strict" -- "$buildDir")
+            buildDate3=$(git log -1 --pretty="format:%ct" --date="iso-strict" $buildDir)
             echo "$buildDir buildDate: $buildDate"
+            echo "$buildDir buildDate2: $buildDate2"
+            echo "$buildDir buildDate3: $buildDate3"
             if [ $buildDate -lt $limitDate ]; then
               echo "Should remove: $buildDir"
               rm -rf $buildDir
