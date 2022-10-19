@@ -95,7 +95,7 @@ jobs:
           DISPLAY: ":99.0"
           START_SERVER_AND_TEST_INSECURE: "true"
         run: |
-          pnpm -F vscode-extension-pack-kogito-kie-editors test:it
+          pnpm -F vscode-extension-pack-kogito-kie-editors build:prod
 
       - name: "PARTIAL → Bootstrap"
         if: steps.setup_build_mode.outputs.mode == 'partial'
