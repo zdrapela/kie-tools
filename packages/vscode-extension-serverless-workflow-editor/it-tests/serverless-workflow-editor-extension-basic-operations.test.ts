@@ -107,7 +107,7 @@ describe("Serverless workflow editor - Basic operations tests", () => {
     this.timeout(30000);
 
     const WORKFLOW_NAME = "hello-world.sw.json";
-    const RENAMED_WORKFLOW_NAME = "hello-world-renamed.sw.json";
+    const RENAMED_WORKFLOW_NAME = "hello-world-renamedd.sw.json";
 
     let editorWebViews = await testHelper.openFileFromSidebar(WORKFLOW_NAME);
     let swfTextEditor = new SwfTextEditorTestHelper(editorWebViews[0]);
