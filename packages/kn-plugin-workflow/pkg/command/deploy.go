@@ -19,7 +19,6 @@ package command
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"time"
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
@@ -76,10 +75,8 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("initializing deploy config: %w", err)
 	}
 
-	if _, err := exec.LookPath("kubectl"); err != nil {
-		fmt.Println("ERROR: kubectl is required for deploy")
-		fmt.Println("Download from https://kubectl.docs.kubernetes.io/installation/kubectl/")
-		os.Exit(1)
+	if err = common.CheckKubectl(); err != nil {
+		return err
 	}
 
 	createService := common.ExecCommand("kubectl", "apply", "-f", fmt.Sprintf("%s/knative.yml", cfg.Path))
