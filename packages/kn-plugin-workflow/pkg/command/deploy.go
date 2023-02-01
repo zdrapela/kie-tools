@@ -79,12 +79,22 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	if _, err = deployKnativeServiceAndEventingBindings(cfg); err != nil {
+		return err
+	}
+
+	finish := time.Since(start)
+	fmt.Printf("🚀 Deploy took: %s \n", finish)
+	return nil
+}
+
+func deployKnativeServiceAndEventingBindings(cfg DeployCmdConfig) (bool, error) {
 	createService := common.ExecCommand("kubectl", "apply", "-f", fmt.Sprintf("%s/knative.yml", cfg.Path))
 	if err := common.RunCommand(
 		createService,
 		"deploy",
 	); err != nil {
-		return err
+		return true, err
 	}
 	fmt.Println("✅ Knative service sucessufully created")
 
@@ -95,14 +105,11 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 			deploy,
 			"deploy",
 		); err != nil {
-			return err
+			return true, err
 		}
 		fmt.Println("✅ Knative Eventing bindings successfully created")
 	}
-
-	finish := time.Since(start)
-	fmt.Printf("🚀 Deploy took: %s \n", finish)
-	return nil
+	return false, nil
 }
 
 func runDeployCmdConfig(cmd *cobra.Command) (cfg DeployCmdConfig, err error) {
