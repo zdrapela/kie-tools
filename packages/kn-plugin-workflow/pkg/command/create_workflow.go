@@ -19,7 +19,7 @@ package command
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 )
 
 type WorkflowStates struct {
@@ -66,7 +66,7 @@ func CreateWorkflow(workflowFilePath string) (err error) {
 		return err
 	}
 
-	err = ioutil.WriteFile(workflowFilePath, workflowFileData, 0644)
+	err = os.WriteFile(workflowFilePath, workflowFileData, 0644)
 	if err != nil {
 		fmt.Println("ERROR: writing the workflow json file.")
 		return err
