@@ -20,7 +20,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
@@ -32,9 +34,13 @@ type testDeploy struct {
 	createFile string
 }
 
+const defaultPath = "./target/kubernetes"
+
 var testRunDeploySuccess = []testDeploy{
-	{input: DeployCmdConfig{Path: "./target/kubernetes"}, expected: false, createFile: "kogito.yml"},
-	{input: DeployCmdConfig{Path: ""}, expected: false, createFile: ""},
+	{input: DeployCmdConfig{Path: defaultPath}, expected: false, createFile: "kogito.yml"},
+	{input: DeployCmdConfig{Path: "./different/folders"}, expected: false, createFile: "kogito.yml"},
+	{input: DeployCmdConfig{Path: "different/folders"}, expected: false, createFile: "kogito.yml"},
+	{input: DeployCmdConfig{}, expected: false, createFile: "test"},
 }
 
 func fakeRunDeploy(testIndex int) func(command string, args ...string) *exec.Cmd {
@@ -62,8 +68,10 @@ func TestRunDeploy_Success(t *testing.T) {
 		defer func() { common.ExecCommand = exec.Command }()
 
 		if test.createFile != "" {
-			createFileInFolderStructure(t, test.createFile)
-			defer deleteFolderStructure(t)
+			if test.input.Path == "" {
+				test.input.Path = defaultPath
+			}
+			createFileInFolderStructure(t, test.input.Path, test.createFile)
 		}
 
 		out, err := deployKnativeServiceAndEventingBindings(test.input)
@@ -74,22 +82,33 @@ func TestRunDeploy_Success(t *testing.T) {
 		if out != test.expected {
 			t.Errorf("Expected %v, got %v", test.expected, out)
 		}
+
+		if test.createFile != "" {
+			deleteFolderStructure(t, test.input.Path)
+		}
 	}
 }
 
-func deleteFolderStructure(t *testing.T) {
-	err := os.RemoveAll("./target")
+func deleteFolderStructure(t *testing.T, path string) {
+
+	parts := strings.Split(path, "/")
+	if parts[0] == "." {
+		path = filepath.Join(parts[0], parts[1])
+	} else {
+		path = parts[0]
+	}
+	err := os.RemoveAll(path)
 	if err != nil {
 		t.Error("Unable to delete folder structure")
 	}
 }
 
-func createFileInFolderStructure(t *testing.T, fileName string) {
-	err := os.MkdirAll("./target/kubernetes", 0750)
+func createFileInFolderStructure(t *testing.T, path string, fileName string) {
+	err := os.MkdirAll(path, 0750)
 	if err != nil {
 		t.Error("Unable to create folder structure")
 	}
-	file, err := os.Create("./target/kubernetes/" + fileName)
+	file, err := os.Create(filepath.Join(path, fileName))
 	if err != nil {
 		t.Error("Unable to create" + fileName + "file")
 	}
