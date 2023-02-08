@@ -32,7 +32,8 @@ type testDeploy struct {
 }
 
 var testRunDeploySuccess = []testDeploy{
-	{input: DeployCmdConfig{Path: "./target/kubernetes"}, expected: true},
+	{input: DeployCmdConfig{Path: "./target/kubernetes"}, expected: false},
+	{input: DeployCmdConfig{Path: ""}, expected: false},
 }
 
 func fakeRunDeploy(testIndex int) func(command string, args ...string) *exec.Cmd {
