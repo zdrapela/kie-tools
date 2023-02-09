@@ -94,6 +94,19 @@ func runCreate(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	if err = runCreateProject(cfg); err != nil {
+		return err
+	}
+
+	workflowFilePath := fmt.Sprintf("./%s/src/main/resources/%s", cfg.ProjectName, metadata.WORKFLOW_SW_JSON)
+	CreateWorkflow(workflowFilePath)
+
+	finish := time.Since(start)
+	fmt.Printf("🚀 Project creation took: %s \n", finish)
+	return nil
+}
+
+func runCreateProject(cfg CreateCmdConfig) (err error) {
 	create := common.ExecCommand(
 		"mvn",
 		fmt.Sprintf("%s:%s:%s:create", cfg.DependenciesVersion.QuarkusPlatformGroupId, metadata.QUARKUS_MAVEN_PLUGIN, cfg.DependenciesVersion.QuarkusVersion),
@@ -111,13 +124,8 @@ func runCreate(cmd *cobra.Command, args []string) error {
 	); err != nil {
 		return err
 	}
-
-	workflowFilePath := fmt.Sprintf("./%s/src/main/resources/%s", cfg.ProjectName, metadata.WORKFLOW_SW_JSON)
-	CreateWorkflow(workflowFilePath)
-
-	finish := time.Since(start)
-	fmt.Printf("🚀 Project creation took: %s \n", finish)
-	return nil
+	fmt.Println("✅ Project successfully created")
+	return
 }
 
 // runCreateCmdConfig returns the configs from the current execution context
