@@ -85,11 +85,6 @@ func runCreate(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("initializing create config: %w", err)
 	}
 
-	exists, err := common.CheckIfDirExists(cfg.ProjectName)
-	if err != nil || exists {
-		return fmt.Errorf("directory with name \"%s\" already exists: %w", cfg.ProjectName, err)
-	}
-
 	if err := common.CheckJavaDependencies(); err != nil {
 		return err
 	}
@@ -107,6 +102,11 @@ func runCreate(cmd *cobra.Command, args []string) error {
 }
 
 func runCreateProject(cfg CreateCmdConfig) (err error) {
+	exists, err := common.CheckIfDirExists(cfg.ProjectName)
+	if err != nil || exists {
+		return fmt.Errorf("directory with name \"%s\" already exists: %w", cfg.ProjectName, err)
+	}
+
 	create := common.ExecCommand(
 		"mvn",
 		fmt.Sprintf("%s:%s:%s:create", cfg.DependenciesVersion.QuarkusPlatformGroupId, metadata.QUARKUS_MAVEN_PLUGIN, cfg.DependenciesVersion.QuarkusVersion),
@@ -124,8 +124,20 @@ func runCreateProject(cfg CreateCmdConfig) (err error) {
 	); err != nil {
 		return err
 	}
-	fmt.Println("✅ Project successfully created")
+
+	out := getProject(cfg)
+	if out {
+		fmt.Println("✅ Project successfully created")
+	}
 	return
+}
+
+func getProject(cfg CreateCmdConfig) bool {
+	// if len(cfg.ProjectName) == 0 {
+	// 	//projectName:="new-project"
+	// }
+
+	return true
 }
 
 // runCreateCmdConfig returns the configs from the current execution context

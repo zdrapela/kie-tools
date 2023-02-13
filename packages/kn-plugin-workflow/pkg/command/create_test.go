@@ -24,6 +24,7 @@ import (
 	"testing"
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
+	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/metadata"
 )
 
 type testCreate struct {
@@ -33,7 +34,24 @@ type testCreate struct {
 
 var testRunCreateSuccess = []testCreate{
 	{input: CreateCmdConfig{ProjectName: "new-project", Extesions: ""}, expected: ""},
-	{input: CreateCmdConfig{ProjectName: "second-project", Extesions: ""}, expected: ""},
+	{input: CreateCmdConfig{
+		ProjectName: "second-project",
+		Extesions:   "",
+		DependenciesVersion: metadata.DependenciesVersion{
+			QuarkusPlatformGroupId: "io.quarkus.platform",
+			QuarkusVersion:         "2.15.0.Final",
+		},
+	}, expected: ""},
+}
+var testRunCreateFail = []testCreate{
+	{input: CreateCmdConfig{
+		ProjectName: "existing-project",
+		Extesions:   "unexisting ",
+		DependenciesVersion: metadata.DependenciesVersion{
+			QuarkusPlatformGroupId: "io.quarkus.nope",
+			QuarkusVersion:         "3.15.0.Final",
+		},
+	}, expected: ""},
 }
 
 func fakeRunCreate(testIndex int) func(command string, args ...string) *exec.Cmd {
@@ -63,6 +81,22 @@ func TestRunCreate_Success(t *testing.T) {
 		err := runCreateProject(test.input) //out,
 		if err != nil {
 			t.Errorf("Expected nil error, got %#v", err)
+		}
+
+		// if out != test.expected {
+		// 	t.Errorf("Expected %v, got %v", test.expected, out)
+		// }
+	}
+}
+
+func TestRunCreate_Fail(t *testing.T) {
+	for testIndex, test := range testRunCreateFail {
+		common.ExecCommand = fakeRunCreate(testIndex)
+		defer func() { common.ExecCommand = exec.Command }()
+
+		err := runCreateProject(test.input) //out,
+		if err == nil {
+			t.Errorf("Expected error, got pass")
 		}
 
 		// if out != test.expected {
