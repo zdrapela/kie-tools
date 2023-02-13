@@ -49,6 +49,14 @@ var testRunCreateFail = []testCreate{
 		Extesions:   "unexisting ",
 		DependenciesVersion: metadata.DependenciesVersion{
 			QuarkusPlatformGroupId: "io.quarkus.nope",
+			QuarkusVersion:         "2.15.0.Final",
+		},
+	}, expected: ""},
+	{input: CreateCmdConfig{
+		ProjectName: "wrong*project/",
+		Extesions:   "unexisting",
+		DependenciesVersion: metadata.DependenciesVersion{
+			QuarkusPlatformGroupId: "io.quarkus.nope",
 			QuarkusVersion:         "3.15.0.Final",
 		},
 	}, expected: ""},

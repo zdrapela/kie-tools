@@ -18,6 +18,7 @@ package command
 
 import (
 	"fmt"
+	"regexp"
 	"time"
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
@@ -102,6 +103,9 @@ func runCreate(cmd *cobra.Command, args []string) error {
 }
 
 func runCreateProject(cfg CreateCmdConfig) (err error) {
+	if err = checkProjectName(cfg.ProjectName); err != nil {
+		return err
+	}
 	exists, err := common.CheckIfDirExists(cfg.ProjectName)
 	if err != nil || exists {
 		return fmt.Errorf("directory with name \"%s\" already exists: %w", cfg.ProjectName, err)
@@ -128,6 +132,15 @@ func runCreateProject(cfg CreateCmdConfig) (err error) {
 	out := getProject(cfg)
 	if out {
 		fmt.Println("✅ Project successfully created")
+	}
+	return
+}
+
+func checkProjectName(name string) (err error) {
+	matched, err := regexp.MatchString(`^([_\-\.a-zA-Z0-9]+)$`, name)
+	if !matched {
+		fmt.Printf("The project name (\"%s\") contains invalid characters. Valid characters are alphanumeric (A-Za-z), underscore, dash and dot.", name)
+		err = fmt.Errorf("invalid project name")
 	}
 	return
 }
