@@ -37,10 +37,11 @@ type testDeploy struct {
 const defaultPath = "./target/kubernetes"
 
 var testRunDeploy = []testDeploy{
-	{input: DeployCmdConfig{Path: defaultPath}, expected: false, createFile: "kogito.yml"},
-	{input: DeployCmdConfig{Path: "./different/folders"}, expected: false, createFile: "kogito.yml"},
-	{input: DeployCmdConfig{Path: "different/folders"}, expected: false, createFile: "kogito.yml"},
+	{input: DeployCmdConfig{Path: defaultPath}, expected: true, createFile: "kogito.yml"},
+	{input: DeployCmdConfig{Path: "./different/folders"}, expected: true, createFile: "kogito.yml"},
+	{input: DeployCmdConfig{Path: "different/folders"}, expected: true, createFile: "kogito.yml"},
 	{input: DeployCmdConfig{}, expected: false, createFile: "test"},
+	{input: DeployCmdConfig{}, expected: false},
 }
 
 func fakeRunDeploy(testIndex int) func(command string, args ...string) *exec.Cmd {
@@ -58,7 +59,11 @@ func TestHelperRunDeploy(t *testing.T) {
 	if err != nil {
 		return
 	}
-	fmt.Fprintf(os.Stdout, "%v", testRunDeploy[testIndex].expected)
+	out := []string{"Test", strconv.Itoa(testIndex)}
+	if testRunDeploy[testIndex].createFile != "" {
+		out = append(out, "with creating", testRunDeploy[testIndex].createFile, "file")
+	}
+	fmt.Fprintf(os.Stdout, "%v", out)
 	os.Exit(0)
 }
 
@@ -97,18 +102,19 @@ func deleteFolderStructure(t *testing.T, path string) {
 	} else {
 		path = parts[0]
 	}
-	err := os.RemoveAll(path)
+	err := common.FS.RemoveAll(path)
 	if err != nil {
 		t.Error("Unable to delete folder structure")
 	}
 }
 
 func createFileInFolderStructure(t *testing.T, path string, fileName string) {
-	err := os.MkdirAll(path, 0750)
+
+	err := common.FS.MkdirAll(path, 0750)
 	if err != nil {
 		t.Error("Unable to create folder structure")
 	}
-	file, err := os.Create(filepath.Join(path, fileName))
+	file, err := common.FS.Create(filepath.Join(path, fileName))
 	if err != nil {
 		t.Error("Unable to create" + fileName + "file")
 	}

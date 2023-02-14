@@ -16,7 +16,15 @@
 
 package common
 
-import "os/exec"
+import (
+	"os/exec"
+
+	"github.com/spf13/afero"
+)
 
 // Make it a global var so it can be overrided in tests
 var ExecCommand = exec.Command
+var (
+	FS  afero.Fs     = afero.NewMemMapFs()
+	AFS *afero.Afero = &afero.Afero{Fs: FS}
+)

@@ -17,14 +17,18 @@
 package command
 
 import (
-	"os"
 	"testing"
+
+	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
+	"github.com/spf13/afero"
 )
+
+var AppFs = afero.NewOsFs()
 
 func TestCreateWrokflow(t *testing.T) {
 	// mock to use virtual filesystem
 	err := CreateWorkflow("./new-workflow.sw.json")
-	os.Remove("./new-workflow.sw.json")
+	common.FS.Remove("./new-workflow.sw.json")
 	if err != nil {
 		t.Errorf("Expected nil error, got %#v", err)
 	}

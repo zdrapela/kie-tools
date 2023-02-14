@@ -43,7 +43,7 @@ var testRunCreateSuccess = []testCreate{
 	}},
 }
 var testRunCreateFail = []testCreate{
-	{input: CreateCmdConfig{ProjectName: "existing-project"}},
+	{input: CreateCmdConfig{ProjectName: "test-data"}},
 	{input: CreateCmdConfig{ProjectName: "wrong*project/name"}},
 }
 

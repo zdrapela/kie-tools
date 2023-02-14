@@ -18,7 +18,6 @@ package command
 
 import (
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
@@ -89,12 +88,13 @@ func runDeploy(cmd *cobra.Command, args []string) error {
 }
 
 func deployKnativeServiceAndEventingBindings(cfg DeployCmdConfig) (bool, error) {
+	isKnativeEventingBindingsCreated := false
 	createService := common.ExecCommand("kubectl", "apply", "-f", fmt.Sprintf("%s/knative.yml", cfg.Path))
 	if err := common.RunCommand(
 		createService,
 		"deploy",
 	); err != nil {
-		return true, err
+		return isKnativeEventingBindingsCreated, err
 	}
 	fmt.Println("✅ Knative service sucessufully created")
 
@@ -107,9 +107,10 @@ func deployKnativeServiceAndEventingBindings(cfg DeployCmdConfig) (bool, error) 
 		); err != nil {
 			return true, err
 		}
+		isKnativeEventingBindingsCreated = true
 		fmt.Println("✅ Knative Eventing bindings successfully created")
 	}
-	return false, nil
+	return isKnativeEventingBindingsCreated, nil
 }
 
 func runDeployCmdConfig(cmd *cobra.Command) (cfg DeployCmdConfig, err error) {
@@ -120,7 +121,7 @@ func runDeployCmdConfig(cmd *cobra.Command) (cfg DeployCmdConfig, err error) {
 }
 
 func checkIfKogitoFileExists(cfg DeployCmdConfig) (bool, error) {
-	if _, err := os.Stat(fmt.Sprintf("%s/kogito.yml", cfg.Path)); err == nil {
+	if _, err := common.FS.Stat(fmt.Sprintf("%s/kogito.yml", cfg.Path)); err == nil {
 		return true, nil
 	} else {
 		return false, err
