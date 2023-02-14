@@ -46,18 +46,18 @@ var testRunCreateSuccess = []testCreate{
 var testRunCreateFail = []testCreate{
 	{input: CreateCmdConfig{
 		ProjectName: "existing-project",
-		Extesions:   "unexisting ",
+		Extesions:   "unexisting",
 		DependenciesVersion: metadata.DependenciesVersion{
 			QuarkusPlatformGroupId: "io.quarkus.nope",
 			QuarkusVersion:         "2.15.0.Final",
 		},
 	}, expected: ""},
 	{input: CreateCmdConfig{
-		ProjectName: "wrong*project/",
+		ProjectName: "wrong*project/name",
 		Extesions:   "unexisting",
 		DependenciesVersion: metadata.DependenciesVersion{
 			QuarkusPlatformGroupId: "io.quarkus.nope",
-			QuarkusVersion:         "3.15.0.Final",
+			QuarkusVersion:         "2.15.0.Final",
 		},
 	}, expected: ""},
 }
@@ -110,5 +110,13 @@ func TestRunCreate_Fail(t *testing.T) {
 		// if out != test.expected {
 		// 	t.Errorf("Expected %v, got %v", test.expected, out)
 		// }
+	}
+}
+
+func TestCreateWrokflow(t *testing.T) {
+
+	err := CreateWorkflow("./new-project")
+	if err != nil {
+		t.Errorf("Expected nil error, got %#v", err)
 	}
 }
