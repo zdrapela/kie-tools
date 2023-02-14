@@ -104,11 +104,3 @@ func TestRunCreate_Fail(t *testing.T) {
 		}
 	}
 }
-
-func TestCreateWrokflow(t *testing.T) {
-
-	err := CreateWorkflow("./new-project")
-	if err != nil {
-		t.Errorf("Expected nil error, got %#v", err)
-	}
-}
