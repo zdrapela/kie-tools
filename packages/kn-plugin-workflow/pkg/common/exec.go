@@ -25,6 +25,6 @@ import (
 // Make it a global var so it can be overrided in tests
 var ExecCommand = exec.Command
 var (
-	FS  afero.Fs     = afero.NewMemMapFs()
+	FS  afero.Fs     = afero.NewOsFs()
 	AFS *afero.Afero = &afero.Afero{Fs: FS}
 )

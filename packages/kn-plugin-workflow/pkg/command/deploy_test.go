@@ -26,6 +26,7 @@ import (
 	"testing"
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
+	"github.com/spf13/afero"
 )
 
 type testDeploy struct {
@@ -68,6 +69,7 @@ func TestHelperRunDeploy(t *testing.T) {
 }
 
 func TestRunDeploy(t *testing.T) {
+	common.FS = afero.NewMemMapFs()
 	for testIndex, test := range testRunDeploy {
 		common.ExecCommand = fakeRunDeploy(testIndex)
 		defer func() { common.ExecCommand = exec.Command }()
@@ -109,7 +111,6 @@ func deleteFolderStructure(t *testing.T, path string) {
 }
 
 func createFileInFolderStructure(t *testing.T, path string, fileName string) {
-
 	err := common.FS.MkdirAll(path, 0750)
 	if err != nil {
 		t.Error("Unable to create folder structure")
