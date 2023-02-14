@@ -36,7 +36,7 @@ type testDeploy struct {
 
 const defaultPath = "./target/kubernetes"
 
-var testRunDeploySuccess = []testDeploy{
+var testRunDeploy = []testDeploy{
 	{input: DeployCmdConfig{Path: defaultPath}, expected: false, createFile: "kogito.yml"},
 	{input: DeployCmdConfig{Path: "./different/folders"}, expected: false, createFile: "kogito.yml"},
 	{input: DeployCmdConfig{Path: "different/folders"}, expected: false, createFile: "kogito.yml"},
@@ -58,12 +58,12 @@ func TestHelperRunDeploy(t *testing.T) {
 	if err != nil {
 		return
 	}
-	fmt.Fprintf(os.Stdout, "%v", testRunDeploySuccess[testIndex].expected)
+	fmt.Fprintf(os.Stdout, "%v", testRunDeploy[testIndex].expected)
 	os.Exit(0)
 }
 
-func TestRunDeploy_Success(t *testing.T) {
-	for testIndex, test := range testRunDeploySuccess {
+func TestRunDeploy(t *testing.T) {
+	for testIndex, test := range testRunDeploy {
 		common.ExecCommand = fakeRunDeploy(testIndex)
 		defer func() { common.ExecCommand = exec.Command }()
 

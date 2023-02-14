@@ -28,38 +28,23 @@ import (
 )
 
 type testCreate struct {
-	input    CreateCmdConfig
-	expected string
+	input CreateCmdConfig
 }
 
 var testRunCreateSuccess = []testCreate{
-	{input: CreateCmdConfig{ProjectName: "new-project", Extesions: ""}, expected: ""},
+	{input: CreateCmdConfig{ProjectName: "new-project", Extesions: ""}},
 	{input: CreateCmdConfig{
 		ProjectName: "second-project",
 		Extesions:   "",
 		DependenciesVersion: metadata.DependenciesVersion{
 			QuarkusPlatformGroupId: "io.quarkus.platform",
-			QuarkusVersion:         "2.15.0.Final",
+			QuarkusVersion:         "2.16.0.Final",
 		},
-	}, expected: ""},
+	}},
 }
 var testRunCreateFail = []testCreate{
-	{input: CreateCmdConfig{
-		ProjectName: "existing-project",
-		Extesions:   "unexisting",
-		DependenciesVersion: metadata.DependenciesVersion{
-			QuarkusPlatformGroupId: "io.quarkus.nope",
-			QuarkusVersion:         "2.15.0.Final",
-		},
-	}, expected: ""},
-	{input: CreateCmdConfig{
-		ProjectName: "wrong*project/name",
-		Extesions:   "unexisting",
-		DependenciesVersion: metadata.DependenciesVersion{
-			QuarkusPlatformGroupId: "io.quarkus.nope",
-			QuarkusVersion:         "2.15.0.Final",
-		},
-	}, expected: ""},
+	{input: CreateCmdConfig{ProjectName: "existing-project"}},
+	{input: CreateCmdConfig{ProjectName: "wrong*project/name"}},
 }
 
 func fakeRunCreate(testIndex int) func(command string, args ...string) *exec.Cmd {
@@ -77,7 +62,7 @@ func TestHelperRunCreate(t *testing.T) {
 	if err != nil {
 		return
 	}
-	fmt.Fprintf(os.Stdout, "%v", testRunCreateSuccess[testIndex].expected)
+	fmt.Fprintf(os.Stdout, "%v", testRunCreateSuccess[testIndex].input.ProjectName)
 	os.Exit(0)
 }
 
