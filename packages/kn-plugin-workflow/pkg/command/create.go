@@ -128,11 +128,7 @@ func runCreateProject(cfg CreateCmdConfig) (err error) {
 	); err != nil {
 		return err
 	}
-
-	out := getProject(cfg)
-	if out {
-		fmt.Println("✅ Project successfully created")
-	}
+	fmt.Println("✅ Project successfully created")
 	return
 }
 
@@ -143,14 +139,6 @@ func checkProjectName(name string) (err error) {
 		err = fmt.Errorf("invalid project name")
 	}
 	return
-}
-
-func getProject(cfg CreateCmdConfig) bool {
-	// if len(cfg.ProjectName) == 0 {
-	// 	//projectName:="new-project"
-	// }
-
-	return true
 }
 
 // runCreateCmdConfig returns the configs from the current execution context

@@ -86,14 +86,10 @@ func TestRunCreate_Success(t *testing.T) {
 		common.ExecCommand = fakeRunCreate(testIndex)
 		defer func() { common.ExecCommand = exec.Command }()
 
-		err := runCreateProject(test.input) //out,
+		err := runCreateProject(test.input)
 		if err != nil {
 			t.Errorf("Expected nil error, got %#v", err)
 		}
-
-		// if out != test.expected {
-		// 	t.Errorf("Expected %v, got %v", test.expected, out)
-		// }
 	}
 }
 
@@ -102,14 +98,10 @@ func TestRunCreate_Fail(t *testing.T) {
 		common.ExecCommand = fakeRunCreate(testIndex)
 		defer func() { common.ExecCommand = exec.Command }()
 
-		err := runCreateProject(test.input) //out,
+		err := runCreateProject(test.input)
 		if err == nil {
 			t.Errorf("Expected error, got pass")
 		}
-
-		// if out != test.expected {
-		// 	t.Errorf("Expected %v, got %v", test.expected, out)
-		// }
 	}
 }
 
