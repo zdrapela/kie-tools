@@ -16,9 +16,7 @@
 
 package common
 
-import (
-	"github.com/spf13/afero"
-)
+import "github.com/spf13/afero"
 
 /* Global variable for Afero filesystem.
 * Works as a wrapper for the OS package and can be mocked in tests.

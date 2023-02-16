@@ -16,9 +16,7 @@
 
 package common
 
-import (
-	"os/exec"
-)
+import "os/exec"
 
 // Make it a global var so it can be overrided in tests
 var ExecCommand = exec.Command
