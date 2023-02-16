@@ -78,7 +78,7 @@ func TestRunDeploy(t *testing.T) {
 			if test.input.Path == "" {
 				test.input.Path = defaultPath
 			}
-			createFileInFolderStructure(t, test.input.Path, test.createFile)
+			createFolderStructureAndFile(t, test.input.Path, test.createFile)
 		}
 
 		out, err := deployKnativeServiceAndEventingBindings(test.input)
@@ -110,11 +110,19 @@ func deleteFolderStructure(t *testing.T, path string) {
 	}
 }
 
-func createFileInFolderStructure(t *testing.T, path string, fileName string) {
+func createFolderStructureAndFile(t *testing.T, path string, fileName string) {
+	createFolderStructure(t, path)
+	createFileInFolderStructure(t, path, fileName)
+}
+
+func createFolderStructure(t *testing.T, path string) {
 	err := common.FS.MkdirAll(path, 0750)
 	if err != nil {
 		t.Error("Unable to create folder structure")
 	}
+}
+
+func createFileInFolderStructure(t *testing.T, path string, fileName string) {
 	file, err := common.FS.Create(filepath.Join(path, fileName))
 	if err != nil {
 		t.Error("Unable to create" + fileName + "file")

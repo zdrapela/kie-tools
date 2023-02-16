@@ -28,7 +28,8 @@ import (
 )
 
 type testCreate struct {
-	input CreateCmdConfig
+	input           CreateCmdConfig
+	existingProject bool
 }
 
 var testRunCreateSuccess = []testCreate{
@@ -43,7 +44,7 @@ var testRunCreateSuccess = []testCreate{
 	}},
 }
 var testRunCreateFail = []testCreate{
-	{input: CreateCmdConfig{ProjectName: "test-data"}},
+	{input: CreateCmdConfig{ProjectName: "test-data"}, existingProject: true},
 	{input: CreateCmdConfig{ProjectName: "wrong*project/name"}},
 }
 
@@ -79,13 +80,20 @@ func TestRunCreate_Success(t *testing.T) {
 }
 
 func TestRunCreate_Fail(t *testing.T) {
+	//common.FS = afero.NewMemMapFs()
 	for testIndex, test := range testRunCreateFail {
+		if test.existingProject == true {
+			createFolderStructure(t, test.input.ProjectName)
+		}
 		common.ExecCommand = fakeRunCreate(testIndex)
 		defer func() { common.ExecCommand = exec.Command }()
 
 		err := runCreateProject(test.input)
 		if err == nil {
 			t.Errorf("Expected error, got pass")
+		}
+		if test.existingProject == true {
+			deleteFolderStructure(t, test.input.ProjectName)
 		}
 	}
 }
