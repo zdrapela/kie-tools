@@ -151,7 +151,7 @@ func parseMavenVersion(version string) (int64, int64, error) {
 }
 
 func CheckIfDirExists(dirName string) (bool, error) {
-	_, err := os.Stat(fmt.Sprintf("./%s", dirName))
+	_, err := FS.Stat(fmt.Sprintf("./%s", dirName))
 	if err == nil {
 		return true, nil
 	}

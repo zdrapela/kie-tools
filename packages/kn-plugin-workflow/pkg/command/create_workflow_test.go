@@ -23,10 +23,8 @@ import (
 	"github.com/spf13/afero"
 )
 
-var AppFs = afero.NewOsFs()
-
 func TestCreateWrokflow(t *testing.T) {
-	// mock to use virtual filesystem
+	common.FS = afero.NewMemMapFs()
 	err := CreateWorkflow("./new-workflow.sw.json")
 	common.FS.Remove("./new-workflow.sw.json")
 	if err != nil {
