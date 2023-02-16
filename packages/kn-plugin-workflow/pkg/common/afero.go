@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Red Hat, Inc. and/or its affiliates.
+ * Copyright 2023 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,11 @@
 package common
 
 import (
-	"os/exec"
+	"github.com/spf13/afero"
 )
 
 // Make it a global var so it can be overrided in tests
-var ExecCommand = exec.Command
+var (
+	FS  afero.Fs     = afero.NewOsFs()
+	AFS *afero.Afero = &afero.Afero{Fs: FS}
+)
