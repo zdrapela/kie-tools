@@ -37,7 +37,7 @@ var testRunCreateSuccess = []testCreate{
 	{input: CreateCmdConfig{ProjectName: "new-project", Extesions: ""}},
 	{input: CreateCmdConfig{
 		ProjectName: "second-project",
-		Extesions:   "",
+		Extesions:   "extension-name",
 		DependenciesVersion: metadata.DependenciesVersion{
 			QuarkusPlatformGroupId: "io.quarkus.platform",
 			QuarkusVersion:         "2.16.0.Final",
