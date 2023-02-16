@@ -17,10 +17,28 @@
 package common
 
 import (
-	"github.com/spf13/afero"
+	"path/filepath"
+	"testing"
 )
 
-/* Global variable for Afero filesystem.
-* Works as a wrapper for the OS package and can be mocked in tests.
- */
-var FS afero.Fs = afero.NewOsFs()
+func DeleteFolderStructure(t *testing.T, path string) {
+	err := FS.RemoveAll(path)
+	if err != nil {
+		t.Error("Unable to delete folder structure")
+	}
+}
+
+func CreateFolderStructure(t *testing.T, path string) {
+	err := FS.MkdirAll(path, 0750)
+	if err != nil {
+		t.Error("Unable to create folder structure")
+	}
+}
+
+func CreateFileInFolderStructure(t *testing.T, path string, fileName string) {
+	_, err := FS.Create(filepath.Join(path, fileName))
+	//defer file.Close()
+	if err != nil {
+		t.Error("Unable to create" + fileName + "file")
+	}
+}

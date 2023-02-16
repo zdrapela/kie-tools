@@ -25,6 +25,7 @@ import (
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/metadata"
+	"github.com/spf13/afero"
 )
 
 type testCreate struct {
@@ -80,10 +81,10 @@ func TestRunCreate_Success(t *testing.T) {
 }
 
 func TestRunCreate_Fail(t *testing.T) {
-	//common.FS = afero.NewMemMapFs()
+	common.FS = afero.NewMemMapFs()
 	for testIndex, test := range testRunCreateFail {
 		if test.existingProject == true {
-			createFolderStructure(t, test.input.ProjectName)
+			common.CreateFolderStructure(t, test.input.ProjectName)
 		}
 		common.ExecCommand = fakeRunCreate(testIndex)
 		defer func() { common.ExecCommand = exec.Command }()
@@ -93,7 +94,7 @@ func TestRunCreate_Fail(t *testing.T) {
 			t.Errorf("Expected error, got pass")
 		}
 		if test.existingProject == true {
-			deleteFolderStructure(t, test.input.ProjectName)
+			common.DeleteFolderStructure(t, test.input.ProjectName)
 		}
 	}
 }

@@ -20,9 +20,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strconv"
-	"strings"
 	"testing"
 
 	"github.com/kiegroup/kie-tools/packages/kn-plugin-workflow/pkg/common"
@@ -78,7 +76,8 @@ func TestRunDeploy(t *testing.T) {
 			if test.input.Path == "" {
 				test.input.Path = defaultPath
 			}
-			createFolderStructureAndFile(t, test.input.Path, test.createFile)
+			common.CreateFolderStructure(t, test.input.Path)
+			common.CreateFileInFolderStructure(t, test.input.Path, test.createFile)
 		}
 
 		out, err := deployKnativeServiceAndEventingBindings(test.input)
@@ -91,41 +90,7 @@ func TestRunDeploy(t *testing.T) {
 		}
 
 		if test.createFile != "" {
-			deleteFolderStructure(t, test.input.Path)
+			common.DeleteFolderStructure(t, test.input.Path)
 		}
 	}
-}
-
-func deleteFolderStructure(t *testing.T, path string) {
-
-	parts := strings.Split(path, "/")
-	if parts[0] == "." {
-		path = filepath.Join(parts[0], parts[1])
-	} else {
-		path = parts[0]
-	}
-	err := common.FS.RemoveAll(path)
-	if err != nil {
-		t.Error("Unable to delete folder structure")
-	}
-}
-
-func createFolderStructureAndFile(t *testing.T, path string, fileName string) {
-	createFolderStructure(t, path)
-	createFileInFolderStructure(t, path, fileName)
-}
-
-func createFolderStructure(t *testing.T, path string) {
-	err := common.FS.MkdirAll(path, 0750)
-	if err != nil {
-		t.Error("Unable to create folder structure")
-	}
-}
-
-func createFileInFolderStructure(t *testing.T, path string, fileName string) {
-	file, err := common.FS.Create(filepath.Join(path, fileName))
-	if err != nil {
-		t.Error("Unable to create" + fileName + "file")
-	}
-	defer file.Close()
 }

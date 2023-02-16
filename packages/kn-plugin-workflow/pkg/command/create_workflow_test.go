@@ -24,10 +24,18 @@ import (
 )
 
 func TestCreateWrokflow(t *testing.T) {
+	var err error
+	filePath := "new-workflow.sw.json"
 	common.FS = afero.NewMemMapFs()
-	err := CreateWorkflow("./new-workflow.sw.json")
-	common.FS.Remove("./new-workflow.sw.json")
+
+	err = CreateWorkflow(filePath)
+	defer common.FS.Remove(filePath)
 	if err != nil {
-		t.Errorf("Expected nil error, got %#v", err)
+		t.Errorf("Error when creating workflow: %#v", err)
+	}
+
+	_, err = common.FS.Stat(filePath)
+	if err != nil {
+		t.Errorf("Error when opening workflow file: %#v", err)
 	}
 }
