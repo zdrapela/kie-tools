@@ -128,7 +128,6 @@ func runCreateProject(cfg CreateCmdConfig) (err error) {
 	); err != nil {
 		return err
 	}
-	//fmt.Println("✅ Project successfully created")
 	return
 }
 
