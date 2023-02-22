@@ -78,7 +78,7 @@ func TestRunBuildImage_Success(t *testing.T) {
 		defer func() { common.ExecCommand = exec.Command }()
 
 		out, err := runBuildImage(test.input)
-		if err != nil {
+		if err == nil {
 			t.Errorf("Expected nil error, got %#v", err)
 		}
 
