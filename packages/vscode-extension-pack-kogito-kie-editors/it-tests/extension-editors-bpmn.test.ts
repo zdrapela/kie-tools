@@ -281,7 +281,7 @@ describe("KIE Editors Integration Test Suite - BPMN Editor", () => {
     await propertiesPanel.assertWidgetedPropertyValue("On Exit Action", newOnExitAction, "textarea");
     await propertiesPanel.assertWidgetedPropertyValue("On Exit Action", newOnExitLanguage, "select");
 
-    await webview.switchBack();
+    if (true) await webview.switchBack();
   });
 
   it("Opens ProcessWithGenerics.bpmn file in BPMN Editor and validate collaborations.", async function () {
