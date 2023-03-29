@@ -41,7 +41,7 @@ describe("Serverless workflow editor - autocompletion tests", () => {
   });
 
   afterEach(async function () {
-    this.timeout(20000);
+    this.timeout(30000);
     await testHelper.closeAllEditors();
     await testHelper.closeAllNotifications();
   });
