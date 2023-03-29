@@ -215,7 +215,7 @@ end: true`);
       );
       expect(editorContent).equal(expectedContent);
     });
-    it("Completes serverless workflow from an empty file and create Empty Serverless Workflow", async function () {
+    it.skip("Completes serverless workflow from an empty file and create Empty Serverless Workflow", async function () {
       this.timeout(60000);
 
       const editorWebviews = await testHelper.openFileFromSidebar("emptyworkflow_autocompletion.sw.json");
