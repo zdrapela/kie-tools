@@ -48,7 +48,7 @@ describe("Serverless workflow editor - autocompletion tests", () => {
   });
 
   describe("JSON files", () => {
-    it("TEST ZDRAPELA Completes serverless workflow with function and state autocompletion", async function () {
+    it("Completes serverless workflow with function and state autocompletion", async function () {
       this.timeout(50000);
 
       const editorWebviews = await testHelper.openFileFromSidebar("autocompletion.sw.json");

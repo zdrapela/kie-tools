@@ -29,7 +29,7 @@ describe("Serverless workflow editor - functions tests", () => {
   let testHelper: VSCodeTestHelper;
 
   before(async function () {
-    this.timeout(30000);
+    this.timeout(60000);
     testHelper = new VSCodeTestHelper();
     await testHelper.openFolder(TEST_PROJECT_FOLDER, "functions");
   });
