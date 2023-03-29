@@ -29,7 +29,7 @@ describe("Serverless workflow editor - syntax highlighting test", () => {
   let driver: WebDriver;
 
   before(async function () {
-    this.timeout(60000);
+    this.timeout(30000);
     testHelper = new VSCodeTestHelper();
     await testHelper.openFolder(TEST_PROJECT_FOLDER, "syntax-highlight");
   });
