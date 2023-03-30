@@ -16,10 +16,20 @@
 
 import { expect } from "chai";
 import * as path from "path";
+import { StatusBar } from "vscode-extension-tester";
 import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 import VSCodeTestHelper, { sleep } from "./helpers/VSCodeTestHelper";
-import { StatusBar } from "vscode-extension-tester";
+
+async function getCoordinatesOverride(): Promise<[number, number]> {
+  const coords: number[] = [];
+  const statusBar = new StatusBar();
+  const coordinates = <RegExpMatchArray>(await statusBar.getCurrentPosition()).match(/\d+/g);
+  for (const c of coordinates) {
+    coords.push(+c);
+  }
+  return [coords[0], coords[1]];
+}
 
 describe("Serverless workflow editor - Diagram navigation tests", () => {
   const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "diagram-navigation");
@@ -62,17 +72,19 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     // Select CheckApplication node
     await swfEditor.selectNode(nodeIds[1]);
     console.log("AFTER SELECT NODE");
-    const statusbar = new StatusBar();
-    console.log("const statusbar = new StatusBar();");
-    const items = await statusbar.getItems();
-    console.log("const items = await statusbar.getItems();");
+    // const statusbar = new StatusBar();
+    // console.log("const statusbar = new StatusBar();");
+    // const items = await statusbar.getItems();
+    // console.log("const items = await statusbar.getItems();");
 
-    const posString = await statusbar.getCurrentPosition();
-    console.log("const posString = await statusbar.getCurrentPosition();");
-    console.log("POSITION STRING: " + posString);
+    // const posString = await statusbar.getCurrentPosition();
+    // console.log("const posString = await statusbar.getCurrentPosition();");
+    // console.log("POSITION STRING: " + posString);
 
     const textEditor = await swfTextEditor.getSwfTextEditor();
     console.log("const textEditor = await swfTextEditor.getSwfTextEditor();");
+    expect(await textEditor.getCoordinates()).to.deep.equal([16, 7]);
+    console.log("expect(await textEditor.getCoordinates()).to.deep.equal([16,7]);");
     let lineNumber = (await textEditor.getCoordinates())[0];
     console.log("let lineNumber = (await textEditor.getCoordinates())[0];");
     let columnNumber = (await textEditor.getCoordinates())[1];
@@ -86,6 +98,57 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     await swfEditor.selectNode(nodeIds[2]);
     lineNumber = (await textEditor.getCoordinates())[0];
     columnNumber = (await textEditor.getCoordinates())[1];
+    console.log("AFTER GET COORDINATES");
+
+    expect(lineNumber).equal(33);
+    expect(columnNumber).equal(7);
+    console.log("AFTER SECOND EXPECT");
+  });
+
+  it("Select states OVERRIDE", async function () {
+    this.timeout(100000);
+    console.log("START");
+
+    const WORKFLOW_NAME = "applicant-request-decision.sw.json";
+
+    const editorWebViews = await testHelper.openFileFromSidebar(WORKFLOW_NAME);
+    const swfTextEditor = new SwfTextEditorTestHelper(editorWebViews[0]);
+    const swfEditor = new SwfEditorTestHelper(editorWebViews[1]);
+    console.log("AFTER OPEN FILE");
+
+    const nodeIds = await swfEditor.getAllNodeIds();
+    expect(nodeIds.length).equal(6);
+    console.log("AFTER GET ALL");
+
+    // Select CheckApplication node
+    await swfEditor.selectNode(nodeIds[1]);
+    console.log("AFTER SELECT NODE");
+    // const statusbar = new StatusBar();
+    // console.log("const statusbar = new StatusBar();");
+    // const items = await statusbar.getItems();
+    // console.log("const items = await statusbar.getItems();");
+
+    // const posString = await statusbar.getCurrentPosition();
+    // console.log("const posString = await statusbar.getCurrentPosition();");
+    // console.log("POSITION STRING: " + posString);
+
+    const textEditor = await swfTextEditor.getSwfTextEditor();
+    console.log("const textEditor = await swfTextEditor.getSwfTextEditor();");
+    expect(await getCoordinatesOverride()).to.deep.equal([16, 7]);
+    console.log("expect(await getCoordinatesOverride()).to.deep.equal([16,7]);");
+    let lineNumber = (await getCoordinatesOverride())[0];
+    console.log("let lineNumber = (await getCoordinatesOverride())[0];");
+    let columnNumber = (await getCoordinatesOverride())[1];
+    console.log("let columnNumber = (await getCoordinatesOverride())[1];");
+
+    expect(lineNumber).equal(16);
+    expect(columnNumber).equal(7);
+    console.log("AFTER EXPECT");
+
+    // Select StartApplication node
+    await swfEditor.selectNode(nodeIds[2]);
+    lineNumber = (await getCoordinatesOverride())[0];
+    columnNumber = (await getCoordinatesOverride())[1];
     console.log("AFTER GET COORDINATES");
 
     expect(lineNumber).equal(33);
