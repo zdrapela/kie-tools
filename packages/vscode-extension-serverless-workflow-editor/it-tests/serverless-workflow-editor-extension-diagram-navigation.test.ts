@@ -45,32 +45,40 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
 
   it("Select states", async function () {
     this.timeout(100000);
+    console.log("START");
 
     const WORKFLOW_NAME = "applicant-request-decision.sw.json";
 
     const editorWebViews = await testHelper.openFileFromSidebar(WORKFLOW_NAME);
     const swfTextEditor = new SwfTextEditorTestHelper(editorWebViews[0]);
     const swfEditor = new SwfEditorTestHelper(editorWebViews[1]);
+    console.log("AFTER OPEN FILE");
 
     const nodeIds = await swfEditor.getAllNodeIds();
     expect(nodeIds.length).equal(6);
+    console.log("AFTER GET ALL");
 
     // Select CheckApplication node
     await swfEditor.selectNode(nodeIds[1]);
+    console.log("AFTER SELECT NODE");
 
     const textEditor = await swfTextEditor.getSwfTextEditor();
     let lineNumber = (await textEditor.getCoordinates())[0];
     let columnNumber = (await textEditor.getCoordinates())[1];
+    console.log("AFTER TEXT LINE COLUMN");
 
     expect(lineNumber).equal(16);
     expect(columnNumber).equal(7);
+    console.log("AFTER EXPECT");
 
     // Select StartApplication node
     await swfEditor.selectNode(nodeIds[2]);
     lineNumber = (await textEditor.getCoordinates())[0];
     columnNumber = (await textEditor.getCoordinates())[1];
+    console.log("AFTER GET COORDINATES");
 
     expect(lineNumber).equal(33);
     expect(columnNumber).equal(7);
+    console.log("AFTER SECOND EXPECT");
   });
 });
