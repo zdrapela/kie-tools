@@ -20,7 +20,6 @@ import { StatusBar, TitleBar, VSBrowser } from "vscode-extension-tester";
 import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 import VSCodeTestHelper, { sleep } from "./helpers/VSCodeTestHelper";
-import { before } from "vscode-extension-tester";
 
 async function getCoordinatesOverride(): Promise<[number, number]> {
   const coords: number[] = [];
