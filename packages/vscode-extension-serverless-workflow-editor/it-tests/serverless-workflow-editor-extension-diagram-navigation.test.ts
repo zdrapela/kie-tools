@@ -72,14 +72,14 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     // Select CheckApplication node
     await swfEditor.selectNode(nodeIds[1]);
     console.log("AFTER SELECT NODE");
-    // const statusbar = new StatusBar();
-    // console.log("const statusbar = new StatusBar();");
-    // const items = await statusbar.getItems();
-    // console.log("const items = await statusbar.getItems();");
+    const statusbar = new StatusBar();
+    console.log("const statusbar = new StatusBar();");
+    const items = await statusbar.getItems();
+    console.log("const items = await statusbar.getItems();");
 
-    // const posString = await statusbar.getCurrentPosition();
-    // console.log("const posString = await statusbar.getCurrentPosition();");
-    // console.log("POSITION STRING: " + posString);
+    const posString = await statusbar.getCurrentPosition();
+    console.log("const posString = await statusbar.getCurrentPosition();");
+    console.log("POSITION STRING: " + posString);
 
     const textEditor = await swfTextEditor.getSwfTextEditor();
     console.log("const textEditor = await swfTextEditor.getSwfTextEditor();");
