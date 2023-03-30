@@ -18,7 +18,7 @@ import { expect } from "chai";
 import * as path from "path";
 import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
-import VSCodeTestHelper from "./helpers/VSCodeTestHelper";
+import VSCodeTestHelper, { sleep } from "./helpers/VSCodeTestHelper";
 
 describe("Serverless workflow editor - Diagram navigation tests", () => {
   const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "diagram-navigation");
@@ -59,6 +59,7 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     await swfEditor.selectNode(nodeIds[1]);
 
     const textEditor = await swfTextEditor.getSwfTextEditor();
+    await sleep(1000);
     let lineNumber = (await textEditor.getCoordinates())[0];
     let columnNumber = (await textEditor.getCoordinates())[1];
 
@@ -67,7 +68,7 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
 
     // Select StartApplication node
     await swfEditor.selectNode(nodeIds[2]);
-
+    await sleep(1000);
     lineNumber = (await textEditor.getCoordinates())[0];
     columnNumber = (await textEditor.getCoordinates())[1];
 
