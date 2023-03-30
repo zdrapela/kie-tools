@@ -19,6 +19,7 @@ import * as path from "path";
 import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 import VSCodeTestHelper, { sleep } from "./helpers/VSCodeTestHelper";
+import { StatusBar } from "vscode-extension-tester";
 
 describe("Serverless workflow editor - Diagram navigation tests", () => {
   const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "diagram-navigation");
@@ -61,6 +62,15 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     // Select CheckApplication node
     await swfEditor.selectNode(nodeIds[1]);
     console.log("AFTER SELECT NODE");
+    const statusbar = new StatusBar();
+    console.log("const statusbar = new StatusBar();");
+    const items = await statusbar.getItems();
+    console.log("const items = await statusbar.getItems();");
+
+    const posString = await statusbar.getCurrentPosition();
+    console.log("const posString = await statusbar.getCurrentPosition();");
+    console.log("POSITION STRING: " + posString);
+
     const textEditor = await swfTextEditor.getSwfTextEditor();
     console.log("const textEditor = await swfTextEditor.getSwfTextEditor();");
     let lineNumber = (await textEditor.getCoordinates())[0];
