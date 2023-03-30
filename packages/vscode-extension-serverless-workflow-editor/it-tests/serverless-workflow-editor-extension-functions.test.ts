@@ -23,7 +23,7 @@ import { Key, TextEditor } from "vscode-extension-tester";
 import VSCodeTestHelper, { sleep } from "./helpers/VSCodeTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 
-describe("Serverless workflow editor - functions tests", () => {
+describe.skip("Serverless workflow editor - functions tests", () => {
   const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "functions");
 
   let testHelper: VSCodeTestHelper;

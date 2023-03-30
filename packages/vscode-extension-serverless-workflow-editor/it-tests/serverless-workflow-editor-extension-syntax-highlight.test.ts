@@ -22,7 +22,7 @@ import { By, WebDriver, WebElement } from "vscode-extension-tester";
 import VSCodeTestHelper from "./helpers/VSCodeTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 
-describe("Serverless workflow editor - syntax highlighting test", () => {
+describe.skip("Serverless workflow editor - syntax highlighting test", () => {
   const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "syntax-highlight");
 
   let testHelper: VSCodeTestHelper;

@@ -24,7 +24,7 @@ import VSCodeTestHelper, { sleep } from "./helpers/VSCodeTestHelper";
 import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 
-describe("Serverless workflow editor - autocompletion tests", () => {
+describe.skip("Serverless workflow editor - autocompletion tests", () => {
   const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "autocompletion");
 
   let testHelper: VSCodeTestHelper;

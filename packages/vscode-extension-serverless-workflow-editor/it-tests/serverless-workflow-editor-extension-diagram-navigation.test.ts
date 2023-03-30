@@ -59,7 +59,6 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     await swfEditor.selectNode(nodeIds[1]);
 
     const textEditor = await swfTextEditor.getSwfTextEditor();
-    await sleep(1000);
     let lineNumber = (await textEditor.getCoordinates())[0];
     let columnNumber = (await textEditor.getCoordinates())[1];
 
@@ -68,7 +67,6 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
 
     // Select StartApplication node
     await swfEditor.selectNode(nodeIds[2]);
-    await sleep(1000);
     lineNumber = (await textEditor.getCoordinates())[0];
     columnNumber = (await textEditor.getCoordinates())[1];
 
