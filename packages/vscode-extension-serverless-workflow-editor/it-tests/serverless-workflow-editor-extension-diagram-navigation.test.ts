@@ -32,19 +32,19 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
   });
 
   beforeEach(async function () {
-    this.timeout(15000);
+    this.timeout(30000);
     await testHelper.closeAllEditors();
     await testHelper.closeAllNotifications();
   });
 
   afterEach(async function () {
-    this.timeout(15000);
+    this.timeout(30000);
     await testHelper.closeAllEditors();
     await testHelper.closeAllNotifications();
   });
 
-  it.skip("Select states", async function () {
-    this.timeout(30000);
+  it("Select states", async function () {
+    this.timeout(100000);
 
     const WORKFLOW_NAME = "applicant-request-decision.sw.json";
 
