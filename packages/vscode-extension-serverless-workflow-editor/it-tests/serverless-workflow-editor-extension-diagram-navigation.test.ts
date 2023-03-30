@@ -20,6 +20,7 @@ import { StatusBar, TitleBar, VSBrowser } from "vscode-extension-tester";
 import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 import VSCodeTestHelper, { sleep } from "./helpers/VSCodeTestHelper";
+// import { before } from 'vscode-extension-tester'
 
 async function getCoordinatesOverride(): Promise<[number, number]> {
   const coords: number[] = [];
@@ -50,6 +51,7 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
 
   afterEach(async function () {
     this.timeout(30000);
+    VSBrowser.instance.takeScreenshot("screenshot");
     await testHelper.closeAllEditors();
     await testHelper.closeAllNotifications();
   });
@@ -60,8 +62,6 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
 
     const controls = new TitleBar().getWindowControls();
     await controls.maximize();
-
-    VSBrowser.instance.takeScreenshot("error-screenshot");
 
     const WORKFLOW_NAME = "applicant-request-decision.sw.json";
 
