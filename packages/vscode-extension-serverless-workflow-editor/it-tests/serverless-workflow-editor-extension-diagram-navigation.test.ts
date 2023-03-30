@@ -61,9 +61,11 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     // Select CheckApplication node
     await swfEditor.selectNode(nodeIds[1]);
     console.log("AFTER SELECT NODE");
-
+    await sleep(2000);
     const textEditor = await swfTextEditor.getSwfTextEditor();
+    await sleep(2000);
     let lineNumber = (await textEditor.getCoordinates())[0];
+    await sleep(2000);
     let columnNumber = (await textEditor.getCoordinates())[1];
     console.log("AFTER TEXT LINE COLUMN");
 
