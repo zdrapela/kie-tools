@@ -71,6 +71,7 @@ export default class VSCodeTestHelper {
     this.browser = VSBrowser.instance;
     this.driver = this.browser.driver;
     this.driver.manage().window().maximize();
+    this.driver.manage().window().setSize(1920, 1080);
   }
 
   /**
