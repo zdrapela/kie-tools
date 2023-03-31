@@ -16,6 +16,7 @@
 
 import { expect } from "chai";
 import * as path from "path";
+import { VSBrowser } from "vscode-extension-tester";
 import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 import VSCodeTestHelper from "./helpers/VSCodeTestHelper";
@@ -39,6 +40,8 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
 
   afterEach(async function () {
     this.timeout(15000);
+    const screenshotName = this.currentTest?.title ?? "fallback-failed-test-screenshot-name";
+    VSBrowser.instance.takeScreenshot(screenshotName);
     await testHelper.closeAllEditors();
     await testHelper.closeAllNotifications();
   });
