@@ -15,6 +15,8 @@
  */
 
 import { assert, expect } from "chai";
+import path from "path";
+import * as fs from "fs-extra";
 import { Key } from "selenium-webdriver";
 import {
   ActivityBar,
@@ -72,7 +74,14 @@ export default class VSCodeTestHelper {
     this.workbench = new Workbench() as Workbench;
     this.browser = VSBrowser.instance;
     this.driver = this.browser.driver;
+    this.driver.takeScreenshot();
   }
+
+  public takeScreenshotAndSave = async (name: string, absolutePath: string) => {
+    const data = await this.driver.takeScreenshot();
+    fs.mkdirpSync(absolutePath);
+    fs.writeFileSync(path.join(absolutePath, `${name}.png`), data, "base64");
+  };
 
   /**
    * Opens folder using commmand suplied by vscode-extension-tester

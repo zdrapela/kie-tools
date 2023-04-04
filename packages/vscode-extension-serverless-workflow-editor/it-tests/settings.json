@@ -3,7 +3,7 @@
   "window.titleBarStyle": "custom",
   "workbench.editor.enablePreview": false,
   "window.restoreFullscreen": true,
-  "window.newWindowDimensions": "maximized",
+  "window.newWindowDimensions": "inherit",
   "workbench.startupEditor": "none",
   "files.simpleDialog.enable": true,
   "window.dialogStyle": "custom",
