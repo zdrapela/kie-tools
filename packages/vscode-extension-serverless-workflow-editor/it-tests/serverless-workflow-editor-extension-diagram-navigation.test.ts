@@ -63,7 +63,7 @@ describe("Serverless workflow editor - Diagram navigation tests", () => {
     if (this.currentTest && this.currentTest?.state !== "passed") {
       console.log("IS FAILED, taking screenshot");
       const screenshotDir = path.join(DIST_IT_TESTS_FOLDER, "screenshots-failed-tests");
-      testHelper.takeScreenshotAndSave(this.currentTest.fullTitle(), screenshotDir);
+      testHelper.takeScreenshotAndSave(this.currentTest.fullTitle() + " (failed)", screenshotDir);
     }
     await testHelper.closeAllEditors();
     await testHelper.closeAllNotifications();
