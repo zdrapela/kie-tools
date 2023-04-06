@@ -291,6 +291,7 @@ export default class VSCodeTestHelper {
    */
   public takeScreenshotAndSave = async (name: string, dirPath: string) => {
     const data = await this.driver.takeScreenshot();
+    console.log("TAKING SCREENSHOT");
     fs.mkdirpSync(dirPath);
     fs.writeFileSync(path.join(dirPath, `${sanitize(name)}.png`), data, "base64");
   };
