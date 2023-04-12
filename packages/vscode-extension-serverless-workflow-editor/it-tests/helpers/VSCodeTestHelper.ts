@@ -115,6 +115,7 @@ export default class VSCodeTestHelper {
    *          Custom kogito swf editor as webview is always on index 1
    */
   public openFileFromSidebar = async (fileName: string, fileParentPath?: string): Promise<WebView[]> => {
+    await sleep(2000);
     if (fileParentPath == undefined || fileParentPath == "") {
       await this.workspaceSectionView.openItem(fileName);
     } else {
@@ -125,7 +126,7 @@ export default class VSCodeTestHelper {
         await fileItem.click();
       }
     }
-    await sleep(5000);
+    await sleep(10000);
 
     const editorGroups = await this.workbench.getEditorView().getEditorGroups();
     // should be always two groups, one text editor and one swf editor
