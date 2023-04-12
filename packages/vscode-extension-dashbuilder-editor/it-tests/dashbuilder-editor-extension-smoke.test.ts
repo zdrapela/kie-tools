@@ -29,7 +29,7 @@ describe.skip("Dashbuilder editor - smoke integration tests", () => {
   let webdriver: WebDriver;
 
   before(async function () {
-    this.timeout(60000);
+    this.timeout(60001);
     testHelper = new VSCodeTestHelper();
     await testHelper.openFolder(TEST_PROJECT_FOLDER, "smoke-test");
   });
