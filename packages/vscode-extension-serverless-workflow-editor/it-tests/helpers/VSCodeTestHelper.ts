@@ -128,11 +128,12 @@ export default class VSCodeTestHelper {
           await fileItem.click();
         }
       }
-      await sleep(5000);
+      await sleep(500);
 
       // should be always two groups, one text editor and one swf editor
       editorGroups = await this.workbench.getEditorView().getEditorGroups();
     } while (editorGroups.length != 2);
+    await sleep(5000);
 
     const webviewLeft = new WebView(editorGroups[0], By.linkText(fileName));
     const webviewRight = new WebView(editorGroups[1], By.linkText(fileName));
