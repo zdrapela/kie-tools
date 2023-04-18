@@ -115,21 +115,23 @@ export default class VSCodeTestHelper {
    *          Custom kogito swf editor as webview is always on index 1
    */
   public openFileFromSidebar = async (fileName: string, fileParentPath?: string): Promise<WebView[]> => {
-    if (fileParentPath == undefined || fileParentPath == "") {
-      await this.workspaceSectionView.openItem(fileName);
-    } else {
-      const pathPieces = fileParentPath.split("/");
-      await this.workspaceSectionView.openItem(...pathPieces);
-      const fileItem = await this.workspaceSectionView.findItem(fileName);
-      if (fileItem != undefined) {
-        await fileItem.click();
+    let editorGroups: any[];
+    do {
+      if (fileParentPath == undefined || fileParentPath == "") {
+        await this.workspaceSectionView.openItem(fileName);
+      } else {
+        const pathPieces = fileParentPath.split("/");
+        await this.workspaceSectionView.openItem(...pathPieces);
+        const fileItem = await this.workspaceSectionView.findItem(fileName);
+        if (fileItem != undefined) {
+          await fileItem.click();
+        }
       }
-    }
-    await sleep(5000);
+      await sleep(5000);
 
-    const editorGroups = await this.workbench.getEditorView().getEditorGroups();
-    // should be always two groups, one text editor and one swf editor
-    assert.equal(editorGroups.length, 2);
+      // should be always two groups, one text editor and one swf editor
+      editorGroups = await this.workbench.getEditorView().getEditorGroups();
+    } while (editorGroups.length != 2);
 
     const webviewLeft = new WebView(editorGroups[0], By.linkText(fileName));
     const webviewRight = new WebView(editorGroups[1], By.linkText(fileName));
