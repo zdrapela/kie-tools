@@ -117,6 +117,7 @@ export default class VSCodeTestHelper {
   public openFileFromSidebar = async (fileName: string, fileParentPath?: string): Promise<WebView[]> => {
     let editorGroups: any[];
     do {
+      console.log("DO WHILE loop run");
       if (fileParentPath == undefined || fileParentPath == "") {
         await this.workspaceSectionView.openItem(fileName);
       } else {
