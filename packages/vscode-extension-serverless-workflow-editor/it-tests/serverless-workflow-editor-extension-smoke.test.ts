@@ -29,7 +29,6 @@ describe.only("Serverless workflow editor - smoke integration tests", () => {
   before(async function () {
     this.timeout(60000);
     testHelper = new VSCodeTestHelper();
-    testHelper.executeCommandFromPrompt("Refresh Explorer");
     await testHelper.openFolder(TEST_PROJECT_FOLDER, "greeting-flow");
   });
 
