@@ -91,10 +91,7 @@ export default class VSCodeTestHelper {
     this.sidebarView = await control.openView();
     assert.isTrue(await this.sidebarView.isDisplayed(), "Explorer side bar view was not opened");
 
-    // this.executeCommandFromPrompt("Refresh Explorer");
-
     this.workspaceSectionView = await this.sidebarView.getContent().getSection(folderName);
-
     return this.sidebarView;
   };
 
@@ -122,13 +119,11 @@ export default class VSCodeTestHelper {
       await this.workspaceSectionView.openItem(fileName);
     } else {
       const pathPieces = fileParentPath.split("/");
-      await this.workspaceSectionView.expand();
-      await this.workspaceSectionView.collapse();
-      await this.workspaceSectionView.openItem(...pathPieces, fileName);
-      // const fileItem = await this.workspaceSectionView.findItem(fileName);
-      // if (fileItem != undefined) {
-      //   await fileItem.click();
-      // }
+      await this.workspaceSectionView.openItem(...pathPieces);
+      const fileItem = await this.workspaceSectionView.findItem(fileName);
+      if (fileItem != undefined) {
+        await fileItem.click();
+      }
     }
     await sleep(5000);
 
