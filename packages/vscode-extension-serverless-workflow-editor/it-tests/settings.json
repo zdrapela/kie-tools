@@ -10,5 +10,8 @@
   "explorer.compactFolders": false,
   "security.workspace.trust.enabled": false,
   "kogito.swf.automaticallyOpenDiagramEditorAlongsideTextEditor": "Open automatically",
-  "kogito.swf.enableKogitoServerlessWorkflowVisualizationPreview": true
+  "kogito.swf.enableKogitoServerlessWorkflowVisualizationPreview": true,
+  "extensions.ignoreRecommendations": true,
+  "git.enabled": false,
+  "git.autoRepositoryDetection": false
 }
