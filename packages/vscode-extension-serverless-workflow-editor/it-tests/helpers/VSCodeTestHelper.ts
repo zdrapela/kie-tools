@@ -91,11 +91,13 @@ export default class VSCodeTestHelper {
     this.sidebarView = await control.openView();
     assert.isTrue(await this.sidebarView.isDisplayed(), "Explorer side bar view was not opened");
 
-    this.executeCommandFromPrompt("Refresh Explorer");
+    // this.executeCommandFromPrompt("Refresh Explorer");
+    const section = await new SideBarView().getContent().getSections();
+    await section[0].collapse();
+    await sleep(1000);
+    await section[0].expand();
 
     this.workspaceSectionView = await this.sidebarView.getContent().getSection(folderName);
-
-    this.executeCommandFromPrompt("Refresh Explorer");
 
     return this.sidebarView;
   };
