@@ -313,11 +313,11 @@ export default class VSCodeTestHelper {
     testMochaContext: Mocha.Context,
     parentScreenshotFolder: string
   ): Promise<void> => {
-    if (testMochaContext.currentTest && testMochaContext.currentTest.state !== "passed") {
-      const screenshotName = testMochaContext.currentTest?.fullTitle() + " (failed)";
-      const screenshotDir = path.join(parentScreenshotFolder, "screenshots");
-      await this.takeScreenshotAndSave(screenshotName, screenshotDir);
-    }
+    // if (testMochaContext.currentTest && testMochaContext.currentTest.state !== "passed") {
+    const screenshotName = testMochaContext.currentTest?.fullTitle() + " (failed)";
+    const screenshotDir = path.join(parentScreenshotFolder, "screenshots");
+    await this.takeScreenshotAndSave(screenshotName, screenshotDir);
+    // }
   };
 }
 
