@@ -122,6 +122,8 @@ export default class VSCodeTestHelper {
       await this.workspaceSectionView.openItem(fileName);
     } else {
       const pathPieces = fileParentPath.split("/");
+      await this.workspaceSectionView.expand();
+      await this.workspaceSectionView.collapse();
       await this.workspaceSectionView.openItem(...pathPieces, fileName);
       // const fileItem = await this.workspaceSectionView.findItem(fileName);
       // if (fileItem != undefined) {
