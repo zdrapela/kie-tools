@@ -94,6 +94,9 @@ export default class VSCodeTestHelper {
     this.executeCommandFromPrompt("Refresh Explorer");
 
     this.workspaceSectionView = await this.sidebarView.getContent().getSection(folderName);
+
+    this.executeCommandFromPrompt("Refresh Explorer");
+
     return this.sidebarView;
   };
 
