@@ -19,7 +19,7 @@
   "git.detectSubmodules": false,
   "git.repositoryScanMaxDepth": 0,
   "files.exclude": {
-    "**/.": true,
+    "**/..?*": true,
     "**/.classpath": true,
     "**/.factorypath": true,
     "**/.project": true,
