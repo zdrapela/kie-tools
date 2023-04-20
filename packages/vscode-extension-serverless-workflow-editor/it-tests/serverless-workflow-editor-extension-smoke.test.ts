@@ -29,6 +29,7 @@ describe.only("Serverless workflow editor - smoke integration tests", () => {
   before(async function () {
     this.timeout(60000);
     testHelper = new VSCodeTestHelper();
+    await sleep(10000);
     await testHelper.openFolder(TEST_PROJECT_FOLDER, "greeting-flow");
   });
 
@@ -46,7 +47,6 @@ describe.only("Serverless workflow editor - smoke integration tests", () => {
 
   it("Opens greetings.sw.json and loads two editor groups", async function () {
     this.timeout(30000000);
-    await sleep(30000000);
     const editorWebviews = await testHelper.openFileFromSidebar("greetings.sw.json", "src/main/resources");
 
     const swfEditor = new SwfEditorTestHelper(editorWebviews[1]);
