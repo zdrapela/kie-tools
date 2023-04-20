@@ -20,9 +20,5 @@
   "git.repositoryScanMaxDepth": 0,
   "extensions.autoCheckUpdates": false,
   "extensions.showRecommendationsOnlyOnDemand": true,
-  "extensions.supportUntrustedWorkspaces": {
-    "redhat.vscode-extension-serverless-workflow-editor": {
-      "supported": true
-    }
-  }
+  "update.mode": "none"
 }
