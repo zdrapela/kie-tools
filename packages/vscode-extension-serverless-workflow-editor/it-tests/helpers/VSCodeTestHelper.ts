@@ -123,7 +123,7 @@ export default class VSCodeTestHelper {
       do {
         await sleep(500);
       } while (
-        this.driver.findElement(
+        this.workspaceSectionView.findElement(
           By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']")
         )
       );
