@@ -129,6 +129,7 @@ export default class VSCodeTestHelper {
         ) {
           await sleep(500);
           await this.workspaceSectionView.openItem(...pathPieces);
+          await sleep(500);
         }
       }
       const fileItem = await this.workspaceSectionView.findItem(fileName);
