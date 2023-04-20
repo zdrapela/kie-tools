@@ -18,6 +18,9 @@
   "editor.minimap.enabled": false,
   "git.detectSubmodules": false,
   "git.repositoryScanMaxDepth": 0,
+  "extensions.autoCheckUpdates": false,
+  "extensions.experimental.deferredStartupFinishedActivation": true,
+  "extensions.webWorker": true,
   "files.exclude": {
     "**/..?*": true,
     "**/.classpath": true,
