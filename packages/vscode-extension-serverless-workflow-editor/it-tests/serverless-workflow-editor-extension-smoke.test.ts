@@ -46,11 +46,12 @@ describe.only("Serverless workflow editor - smoke integration tests", () => {
 
   it("Opens greetings.sw.json and loads two editor groups", async function () {
     this.timeout(30000000);
-    await sleep(30000000);
     const editorWebviews = await testHelper.openFileFromSidebar("greetings.sw.json", "src/main/resources");
 
     const swfEditor = new SwfEditorTestHelper(editorWebviews[1]);
     const swfTextEditor = new SwfTextEditorTestHelper(editorWebviews[0]);
+
+    await sleep(30000000);
 
     // find elements, this asserts they exist
     await swfEditor.getWorkbenchPanelViewElement();
