@@ -120,6 +120,13 @@ export default class VSCodeTestHelper {
     } else {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
+      do {
+        await sleep(500);
+      } while (
+        this.driver.findElement(
+          By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']")
+        )
+      );
       const fileItem = await this.workspaceSectionView.findItem(fileName);
       if (fileItem != undefined) {
         await fileItem.click();
