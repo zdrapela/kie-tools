@@ -121,22 +121,22 @@ export default class VSCodeTestHelper {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
       await sleep(500);
-      if (By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']")) {
-        while (
-          this.workspaceSectionView.findElement(
-            By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']")
-          )
-        ) {
-          await sleep(500);
-          await this.workspaceSectionView.openItem(...pathPieces);
-          await sleep(500);
-        }
-      }
-      const fileItem = await this.workspaceSectionView.findItem(fileName);
-      if (fileItem != undefined) {
-        await fileItem.click();
+
+      while (
+        await this.workspaceSectionView
+          .findElement(By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']"))
+          .isDisplayed()
+      ) {
+        await sleep(500);
+        await this.workspaceSectionView.openItem(...pathPieces);
+        await sleep(500);
       }
     }
+    const fileItem = await this.workspaceSectionView.findItem(fileName);
+    if (fileItem != undefined) {
+      await fileItem.click();
+    }
+
     await sleep(5000);
 
     const editorGroups = await this.workbench.getEditorView().getEditorGroups();
