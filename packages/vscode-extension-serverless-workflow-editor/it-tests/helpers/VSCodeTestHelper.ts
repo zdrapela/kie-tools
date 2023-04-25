@@ -34,6 +34,7 @@ import {
   WebView,
   Workbench,
 } from "vscode-extension-tester";
+import { stalenessOf } from "selenium-webdriver/lib/until";
 
 /**
  * Common test helper class for VSCode extension testing.
@@ -121,16 +122,22 @@ export default class VSCodeTestHelper {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
       await sleep(500);
-
-      while (
-        await this.workspaceSectionView
-          .findElement(By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']"))
-          .isDisplayed()
-      ) {
-        await sleep(500);
-        await this.workspaceSectionView.openItem(...pathPieces);
-        await sleep(500);
+      try {
+        while (
+          stalenessOf(
+            await this.workspaceSectionView.findElement(
+              By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']")
+            )
+          )
+        ) {
+          await sleep(500);
+          await this.workspaceSectionView.openItem(...pathPieces);
+        }
+      } catch (error) {
+        console.log("Element not found");
       }
+
+      await sleep(500);
     }
     const fileItem = await this.workspaceSectionView.findItem(fileName);
     if (fileItem != undefined) {
