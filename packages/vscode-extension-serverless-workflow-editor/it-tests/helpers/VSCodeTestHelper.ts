@@ -122,8 +122,7 @@ export default class VSCodeTestHelper {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
       await sleep(1500);
-      this.waitUntilFolderStructureIsLoaded(this.driver);
-
+      await this.waitUntilFolderStructureIsLoaded(this.driver);
       await sleep(500);
     }
     const fileItem = await this.workspaceSectionView.findItem(fileName);
@@ -147,6 +146,45 @@ export default class VSCodeTestHelper {
     webviews.push(webviewLeft, webviewRight);
 
     return Promise.resolve(webviews);
+  };
+
+  /**
+   * Waits until the provided webview has fully loaded kogito editor.
+   * Method will look in the webview for active iframe and switches to the
+   * iframe if located.
+   * After that it looks for div#envelope-app in the iframe#active-frame and if found,
+   * waits for kogito editor loading spinner to not be present.
+   * Returns void promise if the loading spinner disappears in timeout that is
+   * set in {@see this.EDITOR_LOADING_TIMEOUT} property.
+   *
+   * @param webview {@see WebView} that contains the kogito editor with envelope-app
+   */
+  private waitUntilFolderStructureIsLoaded = async (driver: WebDriver): Promise<void> => {
+    async function checkIfElementExists(driver: WebDriver, locator: By): Promise<boolean> {
+      try {
+        const element = await driver.findElement(locator);
+        await element.isEnabled(); // This line is added to verify that the element is present and enabled on the page, not just located
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    if (
+      await checkIfElementExists(
+        driver,
+        By.className("monaco-tl-twistie collapsible codicon codicon-tree-item-loading")
+      )
+    ) {
+      await driver.wait(
+        until.stalenessOf(
+          driver.findElement(By.className("monaco-tl-twistie collapsible codicon codicon-tree-item-loading"))
+        ),
+        25000,
+        "Folder structure still not located.",
+        500
+      );
+    }
   };
 
   /**
@@ -267,28 +305,6 @@ export default class VSCodeTestHelper {
     await sleep(2000);
 
     await driver.switchTo().frame(null);
-  };
-
-  /**
-   * Waits until the provided webview has fully loaded kogito editor.
-   * Method will look in the webview for active iframe and switches to the
-   * iframe if located.
-   * After that it looks for div#envelope-app in the iframe#active-frame and if found,
-   * waits for kogito editor loading spinner to not be present.
-   * Returns void promise if the loading spinner disappears in timeout that is
-   * set in {@see this.EDITOR_LOADING_TIMEOUT} property.
-   *
-   * @param webview {@see WebView} that contains the kogito editor with envelope-app
-   */
-  private waitUntilFolderStructureIsLoaded = async (driver: WebDriver): Promise<void> => {
-    await driver.wait(
-      until.stalenessOf(
-        driver.findElement(By.className("monaco-tl-twistie collapsible codicon codicon-tree-item-loading"))
-      ),
-      25000,
-      "Folder structure still not located.",
-      500
-    );
   };
 
   /**
