@@ -122,21 +122,7 @@ export default class VSCodeTestHelper {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
       await sleep(1500);
-      try {
-        while (
-          stalenessOf(
-            await this.workspaceSectionView.findElement(
-              By.xpath("//div[@class='monaco-tl-twistie collapsible codicon codicon-tree-item-loading']")
-            )
-          )
-        ) {
-          await sleep(500);
-          await this.workspaceSectionView.openItem(...pathPieces);
-        }
-      } catch (error) {
-        await sleep(500);
-        console.log("Caught error");
-      }
+      this.waitUntilFolderStructureIsLoaded(this.driver);
 
       await sleep(500);
     }
@@ -281,6 +267,28 @@ export default class VSCodeTestHelper {
     await sleep(2000);
 
     await driver.switchTo().frame(null);
+  };
+
+  /**
+   * Waits until the provided webview has fully loaded kogito editor.
+   * Method will look in the webview for active iframe and switches to the
+   * iframe if located.
+   * After that it looks for div#envelope-app in the iframe#active-frame and if found,
+   * waits for kogito editor loading spinner to not be present.
+   * Returns void promise if the loading spinner disappears in timeout that is
+   * set in {@see this.EDITOR_LOADING_TIMEOUT} property.
+   *
+   * @param webview {@see WebView} that contains the kogito editor with envelope-app
+   */
+  private waitUntilFolderStructureIsLoaded = async (driver: WebDriver): Promise<void> => {
+    await driver.wait(
+      until.stalenessOf(
+        driver.findElement(By.className("monaco-tl-twistie collapsible codicon codicon-tree-item-loading"))
+      ),
+      25000,
+      "Folder structure still not located.",
+      500
+    );
   };
 
   /**
