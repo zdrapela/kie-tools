@@ -120,6 +120,7 @@ export default class VSCodeTestHelper {
     } else {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
+      await this.waitUntilFolderStructureIsLoaded(this.driver);
       const fileItem = await this.workspaceSectionView.findItem(fileName);
       if (fileItem != undefined) {
         await fileItem.click();
@@ -141,6 +142,38 @@ export default class VSCodeTestHelper {
     webviews.push(webviewLeft, webviewRight);
 
     return Promise.resolve(webviews);
+  };
+
+  /**
+   * Checks if desired element exists in VSCode window.
+   *
+   * @param {WebDriver} driver Contains the Web Driver.
+   * @param {By} locator `By` locator of the desired element.
+   * @param return Returns true if element exists and false if it doesn't.
+   */
+  private checkIfElementExists = async (driver: WebDriver, locator: By): Promise<boolean> => {
+    try {
+      const element = await driver.findElement(locator);
+      await element.isEnabled();
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  /**
+   * Waits until folder structure in explorer is loaded.
+   *
+   * @param driver Contains the Web Driver.
+   */
+  private waitUntilFolderStructureIsLoaded = async (driver: WebDriver): Promise<void> => {
+    await sleep(1000);
+    const locatorFoldersLoading = By.className("monaco-tl-twistie collapsible codicon codicon-tree-item-loading");
+    if (await this.checkIfElementExists(driver, locatorFoldersLoading)) {
+      while (await this.checkIfElementExists(driver, locatorFoldersLoading)) {
+        await sleep(500);
+      }
+    }
   };
 
   /**
