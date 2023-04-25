@@ -121,7 +121,7 @@ export default class VSCodeTestHelper {
     } else {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
-      await sleep(500);
+      await sleep(1500);
       try {
         while (
           stalenessOf(
@@ -134,7 +134,8 @@ export default class VSCodeTestHelper {
           await this.workspaceSectionView.openItem(...pathPieces);
         }
       } catch (error) {
-        console.log("Element not found");
+        await sleep(500);
+        console.log("Caught error");
       }
 
       await sleep(500);
