@@ -260,6 +260,7 @@ export default class VSCodeTestHelper {
       async () => {
         const loadingSpinners = await webview
           .getDriver()
+
           .findElements(By.className("kie-tools--loading-screen-spinner"));
         return !loadingSpinners || loadingSpinners.length <= 0;
       },
