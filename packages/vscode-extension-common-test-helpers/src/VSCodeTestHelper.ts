@@ -272,6 +272,7 @@ export class VSCodeTestHelper {
   public closeAllEditors = async (): Promise<void> => {
     try {
       await this.workbench.getEditorView().closeAllEditors();
+      await sleep(1000);
     } catch (error) {
       console.log("Error while closing all editors: " + error);
       try {
