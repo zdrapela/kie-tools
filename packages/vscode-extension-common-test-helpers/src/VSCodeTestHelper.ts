@@ -35,7 +35,14 @@ import {
   WebView,
   Workbench,
 } from "vscode-extension-tester";
-import { webViewReady, activeFrame, envelopeApp, kogitoLoadingSpinner, inputBox } from "./CommonLocators";
+import {
+  webViewReady,
+  activeFrame,
+  envelopeApp,
+  kogitoLoadingSpinner,
+  inputBox,
+  explorerFirstFolder,
+} from "./CommonLocators";
 
 /**
  * Common test helper class for VSCode extension testing.
@@ -214,7 +221,7 @@ export class VSCodeTestHelper {
   private waitUntilFolderStructureIsExpanded = async (): Promise<void> => {
     await this.driver.wait(
       async () => {
-        const currentValue = await this.driver.findElement(By.id("list_id_1_0")).getAttribute("aria-expanded");
+        const currentValue = await this.driver.findElement(explorerFirstFolder()).getAttribute("aria-expanded");
         return currentValue === "true";
       },
       25000,
