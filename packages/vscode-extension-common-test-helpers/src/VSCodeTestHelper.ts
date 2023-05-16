@@ -397,11 +397,12 @@ export class VSCodeTestHelper {
   };
 
   /**
-   *
+   * Saves the currently open file inside the text editor.
    */
   public saveFileInTextEditor = async (): Promise<void> => {
     const textEditor = new TextEditor(this.workbench.getEditorView());
     await textEditor.save();
+    await sleep(500);
   };
 }
 
