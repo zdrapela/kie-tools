@@ -26,6 +26,7 @@ import {
   InputBox,
   ModalDialog,
   SideBarView,
+  TextEditor,
   until,
   ViewControl,
   ViewItem,
@@ -393,6 +394,14 @@ export class VSCodeTestHelper {
     const data = await this.driver.takeScreenshot();
     fs.mkdirpSync(dirPath);
     fs.writeFileSync(path.join(dirPath, `${sanitize(name)}.png`), data, "base64");
+  };
+
+  /**
+   *
+   */
+  public saveFileInTextEditor = async (): Promise<void> => {
+    const textEditor = new TextEditor(this.workbench.getEditorView());
+    await textEditor.save();
   };
 }
 
