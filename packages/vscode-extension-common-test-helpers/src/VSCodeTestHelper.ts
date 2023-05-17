@@ -23,6 +23,7 @@ import {
   ActivityBar,
   By,
   EditorGroup,
+  EditorView,
   InputBox,
   ModalDialog,
   SideBarView,
@@ -402,7 +403,28 @@ export class VSCodeTestHelper {
   public saveFileInTextEditor = async (): Promise<void> => {
     const textEditor = new TextEditor(this.workbench.getEditorView());
     await textEditor.save();
-    await sleep(500);
+    await sleep(1000);
+  };
+
+  /**
+   *
+   * @param settingValue
+   * @param settingName
+   * @param settingCategory
+   * @returns
+   */
+  public setVSCodeSetting = async (
+    settingValue: string,
+    settingName: string,
+    ...settingCategory: string[]
+  ): Promise<string | boolean> => {
+    const settingsEditor = await new Workbench().openSettings();
+    const locatedSetting = await settingsEditor.findSetting(settingName, ...settingCategory);
+    const previousSettingValue = await locatedSetting.getValue();
+    await locatedSetting.setValue(settingValue);
+    await new EditorView().closeEditor("Settings");
+    await sleep(1000);
+    return previousSettingValue;
   };
 }
 
