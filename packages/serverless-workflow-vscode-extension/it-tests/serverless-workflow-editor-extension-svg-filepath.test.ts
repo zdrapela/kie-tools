@@ -93,7 +93,7 @@ describe.only("Serverless workflow editor - SVG generation integration tests", (
       `SVG file was not generated correctly at path: ${SVG_FILE_PATH}.`
     );
 
-    // Set back the previous setting value
+    // set back the previous setting value
     await testHelper.setVSCodeSetting(previousSettingValue, "Svg File Path", "Kogito", "Swf");
   });
 });

@@ -407,11 +407,12 @@ export class VSCodeTestHelper {
   };
 
   /**
+   * Open VSCode settings, change the specified setting to the desired value, and close the settings editor.
    *
-   * @param settingValue
-   * @param settingName
-   * @param settingCategory
-   * @returns
+   * @param settingValue the new value to set for the setting
+   * @param settingName the name of the setting to be changed
+   * @param settingCategory the category or categories under which the setting is located
+   * @returns the previous value of the setting (if setting was found), can be used to revert the setting afterwards.
    */
   public setVSCodeSetting = async (
     settingValue: string,
