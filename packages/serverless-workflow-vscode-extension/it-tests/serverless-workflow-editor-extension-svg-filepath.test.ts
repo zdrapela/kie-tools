@@ -27,8 +27,7 @@ describe.only("Serverless workflow editor - SVG generation integration tests", (
 
   const FILE_NAME_NO_EXTENSION: string = "hello-world";
   const WORKFLOW_NAME: string = `${FILE_NAME_NO_EXTENSION}.sw.json`;
-  const SVG_NAME: string = `${FILE_NAME_NO_EXTENSION}.svg`;
-  const RESOURCE_DIRECTORY_PATH: string = path.join("src", "main", "resources");
+  const RESOURCE_FOLDER: string = path.join("src", "main", "resources");
 
   let testHelper: VSCodeTestHelper;
 
@@ -54,12 +53,14 @@ describe.only("Serverless workflow editor - SVG generation integration tests", (
   it(`Opens ${WORKFLOW_NAME}, saves it, and verifies SVG generation`, async function () {
     this.timeout(30000);
 
-    const editorWebViews = await testHelper.openFileFromSidebar(WORKFLOW_NAME, RESOURCE_DIRECTORY_PATH);
+    const svgName = `${FILE_NAME_NO_EXTENSION}.svg`;
+
+    const editorWebViews = await testHelper.openFileFromSidebar(WORKFLOW_NAME, RESOURCE_FOLDER);
 
     await testHelper.saveFileInTextEditor();
 
     // verify SVG was generated after file save
-    const SVG_FILE_PATH: string = path.resolve(TEST_PROJECT_FOLDER, RESOURCE_DIRECTORY_PATH, SVG_NAME);
+    const SVG_FILE_PATH: string = path.resolve(TEST_PROJECT_FOLDER, RESOURCE_FOLDER, svgName);
     // assert(fs.existsSync(SVG_FILE_PATH), `SVG file was not generated at path: ${SVG_FILE_PATH}.`);
     expect(fs.readFileSync(SVG_FILE_PATH, "utf-8")).to.match(
       new RegExp("<svg.*<\\/svg>"),
@@ -68,32 +69,44 @@ describe.only("Serverless workflow editor - SVG generation integration tests", (
   });
 
   it(`Changes settings, opens ${WORKFLOW_NAME}, saves it, and verifies SVG generation`, async function () {
-    this.timeout(40000);
+    this.timeout(50000);
 
-    const changedDirectory = path.join("META-INF", "processSVG");
+    const svgNameAddition = "-changed";
+    const svgName = `${FILE_NAME_NO_EXTENSION}${svgNameAddition}.svg`;
+
+    // set different name for SVG generation
+    const changedFilename = `\${fileBasenameNoExtension}${svgNameAddition}.svg`;
+    const previousSettingFilename = (await testHelper.setVSCodeSetting(
+      changedFilename,
+      "Svg Filename Template",
+      "Kogito",
+      "Swf"
+    )) as string;
 
     // set different filepapth for SVG generation
-    const previousSettingValue = (await testHelper.setVSCodeSetting(
+    const changedDirectory = path.join(RESOURCE_FOLDER, "META-INF", "processSVG");
+    const previousSettingFilePath = (await testHelper.setVSCodeSetting(
       path.join("${workspaceFolder}", changedDirectory),
       "Svg File Path",
       "Kogito",
       "Swf"
     )) as string;
 
-    const editorWebViews = await testHelper.openFileFromSidebar(WORKFLOW_NAME, RESOURCE_DIRECTORY_PATH);
+    const editorWebViews = await testHelper.openFileFromSidebar(WORKFLOW_NAME, RESOURCE_FOLDER);
 
     // save file and wait for the SVG generation
     await testHelper.saveFileInTextEditor();
     await sleep(1000);
 
     // verify SVG was generated after file save
-    const SVG_FILE_PATH: string = path.resolve(TEST_PROJECT_FOLDER, changedDirectory, SVG_NAME);
+    const SVG_FILE_PATH: string = path.resolve(TEST_PROJECT_FOLDER, changedDirectory, svgName);
     expect(fs.readFileSync(SVG_FILE_PATH, "utf-8")).to.match(
       new RegExp("<svg.*<\\/svg>"),
       `SVG file was not generated correctly at path: ${SVG_FILE_PATH}.`
     );
 
     // set back the previous setting value
-    await testHelper.setVSCodeSetting(previousSettingValue, "Svg File Path", "Kogito", "Swf");
+    await testHelper.setVSCodeSetting(previousSettingFilename, "Svg Filename Template", "Kogito", "Swf");
+    await testHelper.setVSCodeSetting(previousSettingFilePath, "Svg File Path", "Kogito", "Swf");
   });
 });
