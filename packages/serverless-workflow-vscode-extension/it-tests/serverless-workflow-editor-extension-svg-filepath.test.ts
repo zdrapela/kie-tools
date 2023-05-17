@@ -22,10 +22,10 @@ import SwfEditorTestHelper from "./helpers/swf/SwfEditorTestHelper";
 import SwfTextEditorTestHelper from "./helpers/swf/SwfTextEditorTestHelper";
 
 describe.only("Serverless workflow editor - SVG generation integration tests", () => {
-  const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "greeting-flow");
+  const TEST_PROJECT_FOLDER: string = path.resolve("it-tests-tmp", "resources", "svg-filepath");
   const DIST_IT_TESTS_FOLDER: string = path.resolve("dist-it-tests");
 
-  const FILE_NAME_NO_EXTENSION: string = "greetings";
+  const FILE_NAME_NO_EXTENSION: string = "hello-world";
   const WORKFLOW_NAME: string = `${FILE_NAME_NO_EXTENSION}.sw.json`;
   const SVG_NAME: string = `${FILE_NAME_NO_EXTENSION}.svg`;
   const RESOURCE_DIRECTORY_PATH: string = path.join("src", "main", "resources");
@@ -70,7 +70,7 @@ describe.only("Serverless workflow editor - SVG generation integration tests", (
   it(`Changes settings, opens ${WORKFLOW_NAME}, saves it, and verifies SVG generation`, async function () {
     this.timeout(40000);
 
-    const changedDirectory = path.join("changed", "directory");
+    const changedDirectory = path.join("META-INF", "processSVG");
 
     // set different filepapth for SVG generation
     const previousSettingValue = (await testHelper.setVSCodeSetting(
