@@ -41,7 +41,7 @@ import {
   envelopeApp,
   kogitoLoadingSpinner,
   inputBox,
-  explorerFirstFolder,
+  explorerFolder,
 } from "./CommonLocators";
 import { isKieEditorWithDualView, isKieEditorWithSingleView, isDashbuilderEditor } from "./KieFileExtensions";
 
@@ -187,7 +187,7 @@ export class VSCodeTestHelper {
     } else {
       const pathPieces = fileParentPath.split("/");
       await this.workspaceSectionView.openItem(...pathPieces);
-      await this.waitUntilFolderStructureIsExpanded();
+      await this.waitUntilFolderStructureIsExpanded(fileParentPath);
       const fileItem = await this.workspaceSectionView.findItem(fileName);
       if (fileItem != undefined) {
         await fileItem.click();
@@ -207,10 +207,14 @@ export class VSCodeTestHelper {
   /**
    * Waits until folder structure in explorer is loaded and expanded.
    */
-  private waitUntilFolderStructureIsExpanded = async (): Promise<void> => {
+  private waitUntilFolderStructureIsExpanded = async (fileParentPath: string): Promise<void> => {
+    const pathDirectories = fileParentPath.split("/");
+    const firstFolderName = pathDirectories[0];
     await this.driver.wait(
       async () => {
-        const currentValue = await this.driver.findElement(explorerFirstFolder()).getAttribute("aria-expanded");
+        const currentValue = await this.driver
+          .findElement(explorerFolder(firstFolderName))
+          .getAttribute("aria-expanded");
         return currentValue === "true";
       },
       25000,
