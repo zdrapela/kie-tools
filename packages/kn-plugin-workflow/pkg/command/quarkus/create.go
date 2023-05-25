@@ -46,7 +46,7 @@ func NewCreateCommand() *cobra.Command {
 	# By default the project is named "new-project"
 	{{.Name}} create
 
-	# Create a project with an specfic name
+	# Create a project with an specific name
 	{{.Name}} create --name myproject
 
 	# Create a project with additional extensions
@@ -92,7 +92,7 @@ func runCreate() error {
 
 	fmt.Println("🔨 Creating a Quarkus Kogito Serverless Workflow project...")
 	if err = runCreateProject(cfg); err != nil {
-		fmt.Println("❌  Error creating quarkus project", err)
+		fmt.Println("❌ Error creating Quarkus project", err)
 		return err
 	}
 
@@ -121,7 +121,7 @@ func runCreateProject(cfg CreateCmdConfig) (err error) {
 		fmt.Sprintf("-DprojectArtifactId=%s", cfg.ProjectName),
 		fmt.Sprintf("-Dextensions=%s", cfg.Extensions))
 
-	fmt.Println("Creating a Kogito Serverless Workflow project...")
+	fmt.Println("Creating a Quarkus Kogito Serverless Workflow project...")
 
 	if err := common.RunCommand(
 		create,
