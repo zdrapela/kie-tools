@@ -105,7 +105,7 @@ func build() string {
 	case "windows":
 		switch arch := strings.ToLower(runtime.GOARCH); arch {
 		case "amd64":
-			buildOutput += "amd64.exe"
+			buildOutput += "windows-amd64.exe"
 		default:
 			fmt.Println("Unsupported architecture:", arch)
 			os.Exit(1)
