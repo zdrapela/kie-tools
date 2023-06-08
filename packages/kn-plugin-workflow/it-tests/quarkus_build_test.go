@@ -127,7 +127,8 @@ func RunQuarkusBuildTest(t *testing.T, cfgTestInputCreate CfgTestInputQuarkusCre
 	assert.NoErrorf(t, err, "Expected nil error, got %v", err)
 
 	// Run `build` command
-	_, err = ExecuteKnWorkflowQuarkus(transformQuarkusBuildCmdCfgToArgs(test.input)...)
+	output, err := ExecuteKnWorkflowQuarkus(transformQuarkusBuildCmdCfgToArgs(test.input)...)
+	fmt.Print(output)
 	assert.NoErrorf(t, err, "Expected nil error, got %v", err)
 
 	assert.FileExists(t, filepath.Join("target", "kubernetes", "knative.yml"))
