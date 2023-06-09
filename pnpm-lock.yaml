@@ -4539,9 +4539,6 @@ importers:
       "@vscode/test-web":
         specifier: ^0.0.30
         version: 0.0.30
-      "@vscode/vsce":
-        specifier: ^2.19.0
-        version: 2.19.0
       chai:
         specifier: ^4.3.4
         version: 4.3.4
@@ -4587,9 +4584,6 @@ importers:
       typescript:
         specifier: ^4.6.2
         version: 4.8.4
-      vscode-extension-tester:
-        specifier: 5.7.0
-        version: 5.7.0(mocha@9.2.0)(typescript@4.8.4)
       webpack:
         specifier: ^5.36.2
         version: 5.70.0(webpack-cli@4.10.0)
@@ -7334,9 +7328,6 @@ importers:
       "@vscode/test-web":
         specifier: ^0.0.30
         version: 0.0.30
-      "@vscode/vsce":
-        specifier: ^2.19.0
-        version: 2.19.0
       chai:
         specifier: ^4.3.4
         version: 4.3.4
@@ -7373,9 +7364,6 @@ importers:
       typescript:
         specifier: ^4.6.2
         version: 4.8.4
-      vscode-extension-tester:
-        specifier: 5.7.0
-        version: 5.7.0(mocha@9.2.0)(typescript@4.8.4)
       webpack:
         specifier: ^5.36.2
         version: 5.70.0(webpack-cli@4.10.0)
@@ -8285,6 +8273,9 @@ importers:
       "@types/selenium-webdriver":
         specifier: ^4.1.12
         version: 4.1.12
+      "@vscode/vsce":
+        specifier: ^2.19.0
+        version: 2.19.0
       mocha:
         specifier: ^9.2.0
         version: 9.2.0
@@ -8295,8 +8286,8 @@ importers:
         specifier: ^4.6.2
         version: 4.8.4
       vscode-extension-tester:
-        specifier: 5.7.0
-        version: 5.7.0(mocha@9.2.0)(typescript@4.8.4)
+        specifier: 5.7.1
+        version: 5.7.1(mocha@9.2.0)(typescript@4.8.4)
 
   packages/vscode-extension-dashbuilder-editor:
     dependencies:
@@ -8379,9 +8370,6 @@ importers:
       "@vscode/test-web":
         specifier: ^0.0.30
         version: 0.0.30
-      "@vscode/vsce":
-        specifier: ^2.19.0
-        version: 2.19.0
       chai:
         specifier: ^4.3.4
         version: 4.3.4
@@ -8415,9 +8403,6 @@ importers:
       typescript:
         specifier: ^4.6.2
         version: 4.8.4
-      vscode-extension-tester:
-        specifier: 5.7.0
-        version: 5.7.0(mocha@9.2.0)(typescript@4.8.4)
       webpack:
         specifier: ^5.36.2
         version: 5.70.0(webpack-cli@4.10.0)
@@ -9035,9 +9020,6 @@ importers:
       "@vscode/test-web":
         specifier: ^0.0.30
         version: 0.0.30
-      "@vscode/vsce":
-        specifier: ^2.19.0
-        version: 2.19.0
       chai:
         specifier: ^4.3.4
         version: 4.3.4
@@ -9071,9 +9053,6 @@ importers:
       typescript:
         specifier: ^4.6.2
         version: 4.8.4
-      vscode-extension-tester:
-        specifier: 5.7.0
-        version: 5.7.0(mocha@9.2.0)(typescript@4.8.4)
       webpack:
         specifier: ^5.36.2
         version: 5.70.0(webpack-cli@4.10.0)
@@ -27137,9 +27116,9 @@ packages:
     dependencies:
       monaco-editor: 0.33.0
 
-  /monaco-page-objects@3.7.0(selenium-webdriver@4.10.0)(typescript@4.8.4):
+  /monaco-page-objects@3.7.1(selenium-webdriver@4.10.0)(typescript@4.8.4):
     resolution:
-      { integrity: sha512-evcYc1K/pjL7i0ip3KYEzcU9UTw6HgX4N09h0WzVCbIgcHx8yWuX6iUsBS0yUW5z4EL5iFKKDrnatXT5G/4HOg== }
+      { integrity: sha512-6NFotXt2g0sIYSxrN7R8sC2KIgkaXGQLlfP1JCfqr0GfAQBTE1viTsqReMRn6kFYE4/zvWOs060Hrsv6wBpfWQ== }
     peerDependencies:
       selenium-webdriver: ^4.6.1
       typescript: ">=4.6.2"
@@ -33341,20 +33320,20 @@ packages:
     engines: { node: ">=0.10.0" }
     dev: true
 
-  /vscode-extension-tester-locators@3.5.0(monaco-page-objects@3.7.0)(selenium-webdriver@4.10.0):
+  /vscode-extension-tester-locators@3.5.1(monaco-page-objects@3.7.1)(selenium-webdriver@4.10.0):
     resolution:
-      { integrity: sha512-ptpgaynqnGYHA5qXfx4Fjcd431zgSHtRbEiLTdtGeiLFKjhZd7eS4M1VCZns6il3aDROP3BiR4aXyoElT+S4Vg== }
+      { integrity: sha512-ZmeMxwbchZYizOcN8hLJUcVuq3KfOhlVPtBFa1zl+i7jmb92h/FDrLT4r5GE5BiDjgHf/YzydfdgZijnH7aNTQ== }
     peerDependencies:
-      monaco-page-objects: ^3.7.0
+      monaco-page-objects: ^3.7.1
       selenium-webdriver: ^4.6.1
     dependencies:
-      monaco-page-objects: 3.7.0(selenium-webdriver@4.10.0)(typescript@4.8.4)
+      monaco-page-objects: 3.7.1(selenium-webdriver@4.10.0)(typescript@4.8.4)
       selenium-webdriver: 4.10.0
     dev: true
 
-  /vscode-extension-tester@5.7.0(mocha@9.2.0)(typescript@4.8.4):
+  /vscode-extension-tester@5.7.1(mocha@9.2.0)(typescript@4.8.4):
     resolution:
-      { integrity: sha512-q9x18VzpXKzAqH2wkOMzKUkJlC9tcncbXz0PKyNGkC0Ktpvd0jTKHuVfxXj9BZmJdNu9k+68yI08CEDcfJu30Q== }
+      { integrity: sha512-UN2l8CuMzy9WsPRjDBjD228ECWsMgHjvbaE4Ct4aWrXazFnGjaGLsJdwSf2KDSk1chjAS1SNre7T5ox8Z7rOXQ== }
     hasBin: true
     peerDependencies:
       mocha: ">=5.2.0"
@@ -33370,13 +33349,13 @@ packages:
       hpagent: 1.2.0
       js-yaml: 4.1.0
       mocha: 9.2.0
-      monaco-page-objects: 3.7.0(selenium-webdriver@4.10.0)(typescript@4.8.4)
+      monaco-page-objects: 3.7.1(selenium-webdriver@4.10.0)(typescript@4.8.4)
       sanitize-filename: 1.6.3
       selenium-webdriver: 4.10.0
       targz: 1.0.1
       typescript: 4.8.4
       unzipper: 0.10.14
-      vscode-extension-tester-locators: 3.5.0(monaco-page-objects@3.7.0)(selenium-webdriver@4.10.0)
+      vscode-extension-tester-locators: 3.5.1(monaco-page-objects@3.7.1)(selenium-webdriver@4.10.0)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
