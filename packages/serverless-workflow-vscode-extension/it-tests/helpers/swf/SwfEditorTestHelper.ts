@@ -15,8 +15,7 @@
  */
 
 import { WebElement } from "selenium-webdriver";
-import { By, WebView } from "vscode-extension-tester";
-import { EditorTestHelper, sleep } from "@kie-tools/vscode-extension-common-test-helpers";
+import { EditorTestHelper, sleep, By, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 
 /**
  * Helper class to easen work with SWF editor inside of a webview.

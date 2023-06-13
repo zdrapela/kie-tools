@@ -16,7 +16,7 @@
 
 require("./extension-editors-smoke.test");
 
-import { By, SideBarView, WebView } from "vscode-extension-tester";
+import { By, SideBarView, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import * as path from "path";
 import { h5ComponentWithText } from "./helpers/CommonLocators";
 import { assertWebElementIsDisplayedEnabled, VSCodeTestHelper } from "@kie-tools/vscode-extension-common-test-helpers";

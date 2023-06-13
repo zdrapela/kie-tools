@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SideBarView, WebView } from "vscode-extension-tester";
+import { SideBarView, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import * as path from "path";
 import { assertWebElementIsDisplayedEnabled, VSCodeTestHelper } from "@kie-tools/vscode-extension-common-test-helpers";
 import BpmnEditorTestHelper from "./helpers/bpmn/BpmnEditorTestHelper";

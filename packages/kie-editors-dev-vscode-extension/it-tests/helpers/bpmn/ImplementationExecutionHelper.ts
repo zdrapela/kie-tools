@@ -1,4 +1,4 @@
-import { By, WebElement } from "vscode-extension-tester";
+import { By, WebElement } from "@kie-tools/vscode-extension-common-test-helpers";
 import {
   addGlobalVariableButton,
   addProcessVariableButton,

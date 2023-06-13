@@ -16,7 +16,7 @@
 
 require("./extension-editors-smoke.test");
 
-import { SideBarView, WebView } from "vscode-extension-tester";
+import { SideBarView, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import * as path from "path";
 import { EditorTabs } from "./helpers/dmn/EditorTabs";
 import { VSCodeTestHelper } from "@kie-tools/vscode-extension-common-test-helpers";

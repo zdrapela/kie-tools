@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { WebElement } from "vscode-extension-tester";
+import { WebElement } from "@kie-tools/vscode-extension-common-test-helpers";
 import { labeledAnyElementInPropertiesPanel } from "../CommonLocators";
 
 /**

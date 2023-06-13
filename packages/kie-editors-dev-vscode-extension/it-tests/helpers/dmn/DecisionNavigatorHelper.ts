@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { By, until, WebElement } from "vscode-extension-tester";
+import { By, until, WebElement } from "@kie-tools/vscode-extension-common-test-helpers";
 import { assertWebElementIsDisplayedEnabled } from "@kie-tools/vscode-extension-common-test-helpers";
 import { spanComponentWithText } from "../CommonLocators";
 import { ExpressionType } from "./ExpressionType";

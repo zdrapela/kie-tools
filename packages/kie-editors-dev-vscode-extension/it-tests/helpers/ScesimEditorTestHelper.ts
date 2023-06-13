@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { By, until, WebElement, WebView } from "vscode-extension-tester";
+import { By, until, WebElement, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import { assertWebElementIsDisplayedEnabled, EditorTestHelper } from "@kie-tools/vscode-extension-common-test-helpers";
 import { expandedDocksBarE, h3ComponentWithText, spanComponentWithText } from "./CommonLocators";
 

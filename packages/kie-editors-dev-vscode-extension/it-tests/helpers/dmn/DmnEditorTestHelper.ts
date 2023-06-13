@@ -15,7 +15,7 @@
  */
 
 import { expect } from "chai";
-import { By, until, WebElement, WebView } from "vscode-extension-tester";
+import { By, until, WebElement, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import { assertWebElementIsDisplayedEnabled, EditorTestHelper } from "@kie-tools/vscode-extension-common-test-helpers";
 import { expandedDocksBarE, h3ComponentWithText, tabWithTitle } from "../CommonLocators";
 import { EditorTabs } from "./EditorTabs";

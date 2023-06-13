@@ -15,7 +15,7 @@
  */
 
 import { WebElement } from "selenium-webdriver";
-import { By, WebView } from "vscode-extension-tester";
+import { By, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import { EditorTestHelper } from "@kie-tools/vscode-extension-common-test-helpers";
 
 /**

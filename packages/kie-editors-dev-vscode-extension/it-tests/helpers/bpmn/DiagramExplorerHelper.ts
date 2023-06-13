@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { until, WebElement } from "vscode-extension-tester";
+import { until, WebElement } from "@kie-tools/vscode-extension-common-test-helpers";
 import { assertWebElementIsDisplayedEnabled } from "@kie-tools/vscode-extension-common-test-helpers";
 import { aComponentWithText } from "../CommonLocators";
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { By } from "vscode-extension-tester";
+import { By } from "@kie-tools/vscode-extension-common-test-helpers";
 
 /**
  * Creates a XPATH string that locates <a> element with specific text.

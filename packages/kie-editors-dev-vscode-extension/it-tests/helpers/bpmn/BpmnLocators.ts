@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { By } from "vscode-extension-tester";
+import { By } from "@kie-tools/vscode-extension-common-test-helpers";
 import { anchorContainingSpanWithTextEqual } from "../CommonLocators";
 
 /**

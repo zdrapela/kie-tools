@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { By, WebElement, WebView } from "vscode-extension-tester";
+import { By, WebElement, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import {
   assertWebElementIsDisplayedEnabled,
   EditorTestHelper,

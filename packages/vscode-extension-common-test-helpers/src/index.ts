@@ -17,3 +17,16 @@
 export * from "./VSCodeTestHelper";
 export * from "./CommonAsserts";
 export * from "./EditorTestHelper";
+
+import {
+  Key,
+  TextEditor,
+  By,
+  WebDriver,
+  WebElement,
+  WebView,
+  SideBarView,
+  until,
+  VSBrowser,
+} from "vscode-extension-tester";
+export { Key, TextEditor, By, WebDriver, WebElement, WebView, SideBarView, until, VSBrowser };

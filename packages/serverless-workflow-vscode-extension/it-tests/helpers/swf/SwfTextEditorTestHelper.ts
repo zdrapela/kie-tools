@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { TextEditor, WebView } from "vscode-extension-tester";
+import { TextEditor, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 
 /**
  * Helper class to easen work with swf text editor.

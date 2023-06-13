@@ -16,7 +16,7 @@
 
 require("./extension-editors-smoke.test");
 
-import { InputBox, SideBarView, TextEditor, WebView } from "vscode-extension-tester";
+import { InputBox, SideBarView, TextEditor, WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 import * as path from "path";
 import { VSCodeTestHelper } from "@kie-tools/vscode-extension-common-test-helpers";
 import ScesimEditorTestHelper from "./helpers/ScesimEditorTestHelper";

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { WebView } from "vscode-extension-tester";
+import { WebView } from "@kie-tools/vscode-extension-common-test-helpers";
 
 /**
  * Helper class to easen work with dashbuilder text editor.
