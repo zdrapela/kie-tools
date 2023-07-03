@@ -71,7 +71,6 @@ func getRunQuarkusProjectPort(t *testing.T, config cfgTestInputQuarkusRun) strin
 }
 
 func TestQuarkusRunCommand(t *testing.T) {
-	t.Skip("Skipped because it is now broken on CI. Runs locally just fine.")
 	for testIndex, test := range cfgTestInputQuarkusRun_Success {
 		t.Run(fmt.Sprintf("Test quarkus run project success index: %d", testIndex), func(t *testing.T) {
 			RunQuarkusRunTest(t, cfgTestInputPrepareQuarkusCreateRun, cfgTestInputPrepareQuarkusBuildRun, test)
