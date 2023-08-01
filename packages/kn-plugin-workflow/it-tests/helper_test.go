@@ -73,11 +73,7 @@ func executeCommandWithOutput(cmd *exec.Cmd, args ...string) (string, error) {
 	cmd.Args = append([]string{cmd.Path}, args...)
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	if testPrintCmdOutput {
-		cmd.Stdout = io.MultiWriter(os.Stdout, &stdout)
-	} else {
-		cmd.Stdout = &stdout
-	}
+	cmd.Stdout = io.MultiWriter(os.Stdout, &stdout)
 	cmd.Stderr = &stderr
 	err := cmd.Run()
 	if err != nil {
