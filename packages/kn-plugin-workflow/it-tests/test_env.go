@@ -16,4 +16,4 @@
 
 package it_tests
 
-var testPrintCmdOutput = false
+var testPrintCmdOutput = true
