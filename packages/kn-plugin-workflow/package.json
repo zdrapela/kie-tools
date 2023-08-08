@@ -36,7 +36,8 @@
     "powershell": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command",
     "setup:env": "cross-env QUARKUS_PLATFORM_GROUP_ID=$(build-env knPluginWorkflow.quarkusPlatformGroupId) QUARKUS_VERSION=$(build-env knPluginWorkflow.quarkusVersion) PLUGIN_VERSION=$(build-env knPluginWorkflow.version) DEV_MODE_IMAGE=$(build-env knPluginWorkflow.devModeImage)",
     "setup:env:win32": "pnpm powershell \"cross-env QUARKUS_PLATFORM_GROUP_ID=$(build-env knPluginWorkflow.quarkusPlatformGroupId) QUARKUS_VERSION=$(build-env knPluginWorkflow.quarkusVersion) DEV_MODE_IMAGE=$(build-env knPluginWorkflow.devModeImage) PLUGIN_VERSION=$(build-env knPluginWorkflow.version)\"",
-    "test": "run-script-if --ignore-errors \"$(build-env tests.ignoreFailures)\" --bool \"$(build-env tests.run)\" --then \"pnpm go:test\" \"pnpm go:test:report\" \"pnpm go:test:it\" \"pnpm go:test:it:report\""
+    "test": "run-script-if --ignore-errors \"$(build-env tests.ignoreFailures)\" --bool \"$(build-env tests.run)\" --then \"pnpm go:test\" \"pnpm go:test:report\"",
+    "test:it": "run-script-if --ignore-errors \"$(build-env integrationTests.ignoreFailures)\" --bool \"$(build-env integrationTests.run)\" --then \"pnpm go:test:it\" \"pnpm go:test:it:report\""
   },
   "devDependencies": {
     "@kie-tools/root-env": "workspace:*",
