@@ -76,8 +76,7 @@ runs:
         brew update
         brew install docker docker-compose
         brew uninstall --ignore-dependencies qemu
-        curl -OSL https://raw.githubusercontent.com/Homebrew/homebrew-core/dc0669eca9479e9eeb495397ba3a7480aaa45c2e/Formula/qemu.rb
-        brew install ./qemu.rb
+        brew install --build-from-source qemu
         mkdir -p ~/.docker/cli-plugins
         ln -sfn $(brew --prefix)/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
         brew install docker-Buildx
