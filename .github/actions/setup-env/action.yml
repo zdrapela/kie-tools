@@ -75,7 +75,7 @@ runs:
         brew untap homebrew/core homebrew/cask
         brew update
         brew install docker docker-compose
-        brew uninstall qemu
+        brew uninstall --ignore-dependencies qemu
         curl -OSL https://raw.githubusercontent.com/Homebrew/homebrew-core/dc0669eca9479e9eeb495397ba3a7480aaa45c2e/Formula/qemu.rb
         brew install ./qemu.rb
         mkdir -p ~/.docker/cli-plugins
