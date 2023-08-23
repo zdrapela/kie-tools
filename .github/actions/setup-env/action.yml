@@ -75,8 +75,7 @@ runs:
         brew untap homebrew/core homebrew/cask
         brew update
         brew install docker docker-compose
-        brew uninstall --ignore-dependencies qemu
-        brew install --build-from-source qemu
+        brew reinstall -f --build-from-source qemu
         mkdir -p ~/.docker/cli-plugins
         ln -sfn $(brew --prefix)/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
         brew install docker-Buildx
